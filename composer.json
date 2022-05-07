@@ -15,7 +15,16 @@
         "symfony/yaml": "6.0.*"
     },
     "require-dev": {
-        "roave/security-advisories": "dev-latest"
+        "phpunit/phpunit": "^9.5",
+        "psalm/plugin-symfony": "^3.1",
+        "roave/security-advisories": "dev-latest",
+        "sebastian/phpcpd": "^6.0",
+        "squizlabs/php_codesniffer": "^3.6",
+        "symfony/browser-kit": "6.0.*",
+        "symfony/css-selector": "6.0.*",
+        "symfony/phpunit-bridge": "^6.0",
+        "vimeo/psalm": "^4.23",
+        "weirdan/doctrine-psalm-plugin": "^2.3"
     },
     "config": {
         "allow-plugins": {

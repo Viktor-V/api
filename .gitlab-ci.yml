@@ -1,0 +1,40 @@
+image: php:8.1.5-cli-alpine3.15
+
+stages:
+    - build
+    - test
+    - deploy
+
+variables:
+    DOCKER_DRIVER: overlay2
+
+cache:
+    key: ${CI_COMMIT_REF_SLUG}
+    paths:
+        - .env
+        - composer.phar
+        - vendor/
+        - var/cache
+        - .phpunit.result.cache
+
+build-php:
+    stage: build
+    script:
+        - curl --show-error --silent "https://getcomposer.org/installer" | php
+        - php composer.phar install --ignore-platform-reqs --no-ansi --no-interaction --no-scripts
+        - php composer.phar dump-autoload --optimize --classmap-authoritative
+        - php composer.phar check-platform-reqs
+
+codestyle:
+    stage: test
+    script:
+        - php -d memory_limit=-1 ./bin/console cache:warmup --env=dev
+        - php -d memory_limit=-1 ./vendor/bin/phpcs --standard=phpcs.xml
+        - php -d memory_limit=-1 ./vendor/bin/phpcpd --fuzzy src/ config/
+        - php -d memory_limit=-1 ./vendor/bin/psalm --no-progress=true --output-format=text -m
+
+test:
+    stage: test
+    script:
+        - php -d memory_limit=-1 ./bin/console cache:warmup --env=test
+        - php -d memory_limit=-1 ./bin/phpunit
