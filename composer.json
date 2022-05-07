@@ -23,6 +23,8 @@
         "symfony/browser-kit": "6.0.*",
         "symfony/css-selector": "6.0.*",
         "symfony/phpunit-bridge": "^6.0",
+        "symfony/stopwatch": "6.0.*",
+        "symfony/web-profiler-bundle": "6.0.*",
         "vimeo/psalm": "^4.23",
         "weirdan/doctrine-psalm-plugin": "^2.3"
     },
