@@ -2,6 +2,7 @@ version: "3.4"
 
 services:
   php:
+    container_name: php
     build:
       context: .
       target: symfony_php
@@ -26,6 +27,7 @@ services:
       MERCURE_JWT_SECRET: ${CADDY_MERCURE_JWT_SECRET:-!ChangeMe!}
 
   caddy:
+    container_name: caddy
     build:
       context: .
       target: symfony_caddy
