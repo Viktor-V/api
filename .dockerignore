@@ -14,10 +14,20 @@
 **/docker-compose.yml
 **/Dockerfile
 **/Thumbs.db
+**/run
+**/.gitlab-ci.yml
+**/.phpcs-cache
+**/.phpunit.result.cache
+**/phpcs.xml
+**/phpunit.xml.dist
+**/psalm.xml
+**/.idea/
+**/symfony.lock
 .editorconfig
 .env.*.local
 .env.local
 .env.local.php
+.env.test
 .php_cs.cache
 bin/*
 !bin/console
@@ -26,3 +36,4 @@ helm/
 public/bundles/
 var/
 vendor/
+tests/
