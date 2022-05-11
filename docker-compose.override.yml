@@ -18,5 +18,10 @@ services:
       - ./docker/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
       - ./public:/srv/app/public:ro
 
+  rabbitmq:
+    ports:
+      - '127.0.0.1:5672:5672' # dsn server
+      - '127.0.0.1:15672:15672' # web ui
+
 ###> symfony/mercure-bundle ###
 ###< symfony/mercure-bundle ###
