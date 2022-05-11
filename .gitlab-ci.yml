@@ -23,7 +23,7 @@ build-php:
         - curl --show-error --silent "https://getcomposer.org/installer" | php
         - php composer.phar install --ignore-platform-reqs --no-ansi --no-interaction --no-scripts
         - php composer.phar dump-autoload --optimize --classmap-authoritative
-        - php composer.phar check-platform-reqs
+        #- php composer.phar check-platform-reqs
 
 codestyle:
     stage: test
