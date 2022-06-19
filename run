@@ -13,6 +13,9 @@ if [ $# -gt 0 ]; then
         docker-compose exec php php -d memory_limit=-1 ./vendor/bin/phpcpd --fuzzy src/ config/
         docker-compose exec php php -d memory_limit=-1 ./vendor/bin/psalm
         docker-compose exec php php -d memory_limit=-1 ./bin/phpunit
+    elif [ "$1" == "test" ]; then
+        shift 1
+        docker-compose exec php php -d memory_limit=-1 ./bin/phpunit
     else
         echo "Unknown command"
     fi
