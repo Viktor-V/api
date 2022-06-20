@@ -51,3 +51,17 @@ services:
     App\Common\Infrastructure\Bus\Event\EventBus:
         arguments:
             $eventBus: '@event.bus'
+
+    admin.create.specification:
+        class: App\Common\Domain\Specification\SpecificationList
+        arguments:
+            $specifications:
+                - '@App\Admin\Domain\Specification\UniqueEmailSpecificationInterface'
+
+    App\Admin\Application\UseCase\Command\Create\CreateHandler:
+        arguments:
+            $specification: '@admin.create.specification'
+
+    App\Admin\Application\UseCase\Command\SignUp\SignUpHandler:
+        arguments:
+            $specification: '@admin.create.specification'

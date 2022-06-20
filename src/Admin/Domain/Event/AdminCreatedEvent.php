@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Admin\Domain\Event;
 
-use App\Admin\Domain\ValueObject\Email;
-use App\Admin\Domain\ValueObject\Name;
-use App\Admin\Domain\ValueObject\Role;
+use App\Admin\Domain\Entity\Embedded\Email;
+use App\Admin\Domain\Entity\Embedded\Name;
+use App\Admin\Domain\Entity\Embedded\Role;
+use App\Common\Domain\Entity\Embedded\Uuid;
 use App\Common\Domain\Event\EventInterface;
-use App\Common\Domain\ValueObject\Uuid;
 
 class AdminCreatedEvent implements EventInterface
 {

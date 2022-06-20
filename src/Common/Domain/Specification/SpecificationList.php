@@ -17,10 +17,10 @@ final class SpecificationList implements SpecificationInterface
     /**
      * @inheritdoc
      */
-    public function isSatisfied(): bool
+    public function isSatisfied(mixed ...$values): bool
     {
         foreach ($this->specifications as $specification) {
-            $specification->isSatisfied();
+            $specification->isSatisfied(...$values);
         }
 
         return true;

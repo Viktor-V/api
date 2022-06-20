@@ -6,12 +6,12 @@ namespace Admin\Domain\Entity;
 
 use App\Admin\Domain\Entity\Admin;
 use App\Admin\Domain\Event\AdminCreatedEvent;
-use App\Admin\Domain\ValueObject\ConfirmationToken;
-use App\Admin\Domain\ValueObject\Email;
-use App\Admin\Domain\ValueObject\Name;
-use App\Admin\Domain\ValueObject\Password;
+use App\Admin\Domain\Entity\Embedded\ConfirmationToken;
+use App\Admin\Domain\Entity\Embedded\Email;
+use App\Admin\Domain\Entity\Embedded\Name;
+use App\Admin\Domain\Entity\Embedded\Password;
 use App\Common\Domain\Specification\SpecificationInterface;
-use App\Common\Domain\ValueObject\Uuid;
+use App\Common\Domain\Entity\Embedded\Uuid;
 use PHPUnit\Framework\TestCase;
 
 class AdminTest extends TestCase

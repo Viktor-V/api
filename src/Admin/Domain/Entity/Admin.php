@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace App\Admin\Domain\Entity;
 
-use App\Admin\Domain\ValueObject\ConfirmationToken;
-use App\Admin\Domain\ValueObject\Email;
-use App\Admin\Domain\ValueObject\Name;
-use App\Admin\Domain\ValueObject\Password;
-use App\Admin\Domain\ValueObject\Role;
-use App\Admin\Domain\ValueObject\Status;
+use App\Admin\Domain\Entity\Embedded\ConfirmationToken;
+use App\Admin\Domain\Entity\Embedded\Email;
+use App\Admin\Domain\Entity\Embedded\Name;
+use App\Admin\Domain\Entity\Embedded\Password;
+use App\Admin\Domain\Entity\Embedded\Role;
+use App\Admin\Domain\Entity\Embedded\Status;
+use App\Common\Domain\Entity\Embedded\Uuid;
 use App\Admin\Domain\Event\AdminCreatedEvent;
 use App\Common\Domain\Entity\Aggregate;
 use App\Common\Domain\Specification\SpecificationInterface;
-use App\Common\Domain\ValueObject\Uuid;
 use DateTimeImmutable;
 
 final class Admin extends Aggregate
@@ -31,7 +31,7 @@ final class Admin extends Aggregate
         private SpecificationInterface $specification,
         private ?ConfirmationToken $confirmationToken = null
     ) {
-        $this->specification->isSatisfied();
+        $this->specification->isSatisfied($email);
 
         $this->createdAt = new DateTimeImmutable();
         $this->updatedAt = null;

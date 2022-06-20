@@ -9,5 +9,5 @@ interface SpecificationInterface
     /**
      * @throws SpecificationException
      */
-    public function isSatisfied(): bool;
+    public function isSatisfied(mixed ...$values): bool;
 }

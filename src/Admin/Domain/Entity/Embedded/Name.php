@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Admin\Domain\ValueObject;
+namespace App\Admin\Domain\Entity\Embedded;
 
 use App\Common\Domain\Assert\Assertion;
 
 final class Name
 {
-    public const MAX_NAME_LENGTH = 100;
+    public const MAX_NAME_LENGTH = 32;
 
     private string $firstname;
     private string $lastname;
