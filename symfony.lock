@@ -454,5 +454,8 @@
     },
     "weirdan/doctrine-psalm-plugin": {
         "version": "v2.3.0"
+    },
+    "zenstruck/messenger-test": {
+        "version": "v1.4.2"
     }
 }

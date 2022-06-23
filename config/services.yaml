@@ -62,6 +62,6 @@ services:
         arguments:
             $specification: '@admin.create.specification'
 
-    App\Admin\Application\UseCase\Command\SignUp\SignUpHandler:
+    App\Admin\Application\UseCase\Command\Register\RegisterHandler:
         arguments:
             $specification: '@admin.create.specification'

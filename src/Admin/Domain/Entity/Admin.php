@@ -10,6 +10,7 @@ use App\Admin\Domain\Entity\Embedded\Name;
 use App\Admin\Domain\Entity\Embedded\Password;
 use App\Admin\Domain\Entity\Embedded\Role;
 use App\Admin\Domain\Entity\Embedded\Status;
+use App\Admin\Domain\Event\AdminRegisteredEvent;
 use App\Common\Domain\Entity\Embedded\Uuid;
 use App\Admin\Domain\Event\AdminCreatedEvent;
 use App\Common\Domain\Entity\Aggregate;
@@ -48,12 +49,12 @@ final class Admin extends Aggregate
         $status = Status::ACTIVE;
 
         $admin = new self($uuid, $email, $name, $password, $role, $status, $specification);
-        $admin->raise(new AdminCreatedEvent($uuid, $email, $name, $role));
+        $admin->raise(new AdminCreatedEvent($email, $name));
 
         return $admin;
     }
 
-    public static function signUp(
+    public static function register(
         Uuid $uuid,
         Email $email,
         Name $name,
@@ -65,7 +66,7 @@ final class Admin extends Aggregate
         $status = Status::DISABLED;
 
         $admin = new self($uuid, $email, $name, $password, $role, $status, $specification, $confirmationToken);
-        $admin->raise(new AdminCreatedEvent($uuid, $email, $name, $role));
+        $admin->raise(new AdminRegisteredEvent($email, $name, $confirmationToken));
 
         return $admin;
     }
