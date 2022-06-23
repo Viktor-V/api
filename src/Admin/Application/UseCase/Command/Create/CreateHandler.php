@@ -26,6 +26,7 @@ final class CreateHandler implements CommandHandlerInterface
                 $command->uuid,
                 $command->email,
                 $command->name,
+                $command->password,
                 $this->passwordEncoder->encode($command->password),
                 $this->specification
             )

@@ -9,6 +9,7 @@ use App\Admin\Domain\Entity\Embedded\ConfirmationToken;
 use App\Admin\Domain\Entity\Embedded\Email;
 use App\Admin\Domain\Entity\Embedded\Name;
 use App\Admin\Domain\Entity\Embedded\Password;
+use App\Admin\Domain\Entity\Embedded\PlainPassword;
 use App\Admin\Domain\Event\AdminCreatedEvent;
 use App\Admin\Domain\Event\AdminRegisteredEvent;
 use App\Common\Domain\Entity\Embedded\Uuid;
@@ -23,6 +24,7 @@ class AdminTest extends TestCase
             new Uuid('b48b643e-a9b8-41a6-802d-0b438b566f62'),
             new Email('admin@admin.com'),
             new Name('Firstname', 'Lastname'),
+            new PlainPassword('qwert'),
             new Password('qwert'),
             $this->createMock(SpecificationInterface::class)
         );
@@ -43,6 +45,7 @@ class AdminTest extends TestCase
             new Uuid('b48b643e-a9b8-41a6-802d-0b438b566f62'),
             new Email('admin@admin.com'),
             new Name('Firstname', 'Lastname'),
+            new PlainPassword('qwert'),
             new Password('qwert'),
             $this->createMock(SpecificationInterface::class),
             new ConfirmationToken('token')

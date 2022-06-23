@@ -8,6 +8,7 @@ use App\Admin\Domain\Entity\Embedded\ConfirmationToken;
 use App\Admin\Domain\Entity\Embedded\Email;
 use App\Admin\Domain\Entity\Embedded\Name;
 use App\Admin\Domain\Entity\Embedded\Password;
+use App\Admin\Domain\Entity\Embedded\PlainPassword;
 use App\Admin\Domain\Entity\Embedded\Role;
 use App\Admin\Domain\Entity\Embedded\Status;
 use App\Admin\Domain\Event\AdminRegisteredEvent;
@@ -42,6 +43,7 @@ final class Admin extends Aggregate
         Uuid $uuid,
         Email $email,
         Name $name,
+        PlainPassword $plainPassword,
         Password $password,
         SpecificationInterface $specification
     ): self {
@@ -49,7 +51,7 @@ final class Admin extends Aggregate
         $status = Status::ACTIVE;
 
         $admin = new self($uuid, $email, $name, $password, $role, $status, $specification);
-        $admin->raise(new AdminCreatedEvent($email, $name));
+        $admin->raise(new AdminCreatedEvent($email, $name, $plainPassword));
 
         return $admin;
     }
@@ -58,6 +60,7 @@ final class Admin extends Aggregate
         Uuid $uuid,
         Email $email,
         Name $name,
+        PlainPassword $plainPassword,
         Password $password,
         SpecificationInterface $specification,
         ConfirmationToken $confirmationToken
@@ -66,7 +69,7 @@ final class Admin extends Aggregate
         $status = Status::DISABLED;
 
         $admin = new self($uuid, $email, $name, $password, $role, $status, $specification, $confirmationToken);
-        $admin->raise(new AdminRegisteredEvent($email, $name, $confirmationToken));
+        $admin->raise(new AdminRegisteredEvent($email, $name, $plainPassword, $confirmationToken));
 
         return $admin;
     }
