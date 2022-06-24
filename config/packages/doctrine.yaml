@@ -23,13 +23,6 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Admin/Infrastructure/ORM/Mapping'
                 prefix: 'App\Admin\Domain\Entity'
                 alias: Admin
-
-            App:
-                is_bundle: false
-                dir: '%kernel.project_dir%/src/Entity'
-                prefix: 'App\Entity'
-                alias: App
-
 when@test:
     doctrine:
         dbal:
