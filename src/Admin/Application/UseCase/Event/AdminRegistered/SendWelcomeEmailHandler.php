@@ -35,4 +35,3 @@ class SendWelcomeEmailHandler implements EventHandlerInterface
         $this->mailer->send($email);
     }
 }
-

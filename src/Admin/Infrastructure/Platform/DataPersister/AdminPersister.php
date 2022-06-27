@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Admin\Infrastructure\API\DataPersister;
+namespace App\Admin\Infrastructure\Platform\DataPersister;
 
 use ApiPlatform\Core\DataPersister\ContextAwareDataPersisterInterface;
 use App\Admin\Application\UseCase\Command\Register\RegisterCommand;
-use App\Admin\Infrastructure\API\Dto\AdminDto;
+use App\Admin\Application\DataTransfer\Admin;
 use App\Common\Application\Command\CommandBusInterface;
 use Symfony\Component\Uid\Uuid;
 
@@ -19,11 +19,11 @@ class AdminPersister implements ContextAwareDataPersisterInterface
 
     public function supports($data, array $context = []): bool
     {
-        return $data instanceof AdminDto;
+        return $data instanceof Admin;
     }
 
     /**
-     * @param AdminDto $data
+     * @psalm-param Admin $data
      */
     public function persist($data, array $context = [])
     {
@@ -35,12 +35,10 @@ class AdminPersister implements ContextAwareDataPersisterInterface
             $data->password
         ));
 
-        $data->injectUuid($uuid);
-
-        return $data;
+        return Admin::initialization($uuid, $data->email, $data->firstname, $data->lastname, $data->password);
     }
 
-    public function remove($data, array $context = [])
+    public function remove($data, array $context = []): void
     {
         // TODO: Implement remove() method.
     }

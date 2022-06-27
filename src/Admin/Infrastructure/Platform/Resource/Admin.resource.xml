@@ -4,8 +4,10 @@
            xsi:schemaLocation="https://api-platform.com/schema/metadata
         https://api-platform.com/schema/metadata/metadata-2.0.xsd">
 
-    <resource class="App\Admin\Infrastructure\API\Dto\AdminDto" shortName="Admin">
-        <property name="uuid" identifier="true"/>
+    <resource class="App\Admin\Application\DataTransfer\Admin" shortName="Admin" description="Admin test">
+        <property name="uuid" identifier="true" writable="false"/>
+
+        <property name="password" readable="false"/>
 
         <collectionOperations>
             <collectionOperation name="get" />
