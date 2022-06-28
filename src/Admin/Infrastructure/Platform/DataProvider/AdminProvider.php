@@ -23,12 +23,18 @@ class AdminProvider implements
 
     public function getCollection(string $resourceClass, string $operationName = null, array $context = []): iterable
     {
-        // TODO: Implement getCollection() method.
+        return [];
     }
 
-    public function getItem(string $resourceClass, $id, string $operationName = null, array $context = [])
+    public function getItem(string $resourceClass, $id, string $operationName = null, array $context = []): ?object
     {
-        return $this->bus->handle(new FindQuery($id));
+        /** @var string $id */
+        $query = new FindQuery($id);
+
+        /** @var Admin $admin */
+        $admin = $this->bus->handle($query);
+
+        return $admin;
     }
 
     public function supports(string $resourceClass, string $operationName = null, array $context = []): bool

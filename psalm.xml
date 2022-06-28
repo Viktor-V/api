@@ -13,6 +13,14 @@
         </ignoreFiles>
     </projectFiles>
 
+    <issueHandlers>
+        <PropertyNotSetInConstructor>
+            <errorLevel type="suppress">
+                <directory name="src/*/Application/DataTransfer"/>
+            </errorLevel>
+        </PropertyNotSetInConstructor>
+    </issueHandlers>
+
     <plugins>
         <pluginClass class="Psalm\SymfonyPsalmPlugin\Plugin"/>
         <pluginClass class="Weirdan\DoctrinePsalmPlugin\Plugin"/>

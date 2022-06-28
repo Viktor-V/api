@@ -6,7 +6,7 @@ namespace App\Admin\Application\DataTransfer;
 
 use App\Common\Application\DataTransfer\UuidTrait;
 
-class Admin
+final class Admin
 {
     use UuidTrait;
 

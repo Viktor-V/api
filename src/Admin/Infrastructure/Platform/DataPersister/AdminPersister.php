@@ -22,11 +22,9 @@ class AdminPersister implements ContextAwareDataPersisterInterface
         return $data instanceof Admin;
     }
 
-    /**
-     * @psalm-param Admin $data
-     */
-    public function persist($data, array $context = [])
+    public function persist($data, array $context = []): object
     {
+        /** @var Admin $data */
         $this->bus->dispatch(new RegisterCommand(
             $uuid = Uuid::v4()->__toString(),
             $data->email,
