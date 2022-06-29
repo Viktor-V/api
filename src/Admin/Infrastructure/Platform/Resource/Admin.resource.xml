@@ -4,13 +4,16 @@
            xsi:schemaLocation="https://api-platform.com/schema/metadata
         https://api-platform.com/schema/metadata/metadata-2.0.xsd">
 
-    <resource class="App\Admin\Application\DataTransfer\Admin" shortName="Admin" description="Admin test">
+    <resource class="App\Admin\Application\DataTransfer\Admin" shortName="Admin" description="Admin">
         <property name="uuid" identifier="true" writable="false"/>
 
         <property name="password" readable="false"/>
 
         <collectionOperations>
-            <collectionOperation name="get" />
+            <collectionOperation name="get">
+                <attribute name="pagination_client_items_per_page">true</attribute>
+                <attribute name="pagination_items_per_page">5</attribute>
+            </collectionOperation>
             <collectionOperation name="post"/>
         </collectionOperations>
 
