@@ -1,30 +1,9 @@
-{% apply inline_css(source('mail/theme/bootstrap.min.css'), source('mail/theme/mail.css')) %}
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>{{ subject }}</title>
-</head>
-<body class="bg-light">
-    <div class="container">
-        <div class="card mt-5">
-            <div class="card-body">
-                <h1 class="h3 mb-2">{{ subject }}</h1>
-                <h5 class="text-teal-700">{{ name }}</h5>
-                <hr>
-                <div class="space-y-3">
-                    <p class="text-gray-700">
-                        A new super admin account has been created for you. Your credentials: {# TODO: trans #}
-                    </p>
-                    <ul class="text-gray-700">
-                        <li>Username: <b>{{ user }}</b></li> {# TODO: trans #}
-                        <li>Password: <b>{{ password }}</b></li> {# TODO: trans #}
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</body>
-</html>
-{% endapply %}
+{% extends 'mail/layout/default.html.twig' %}
+
+{% block title %}
+    {{ subject }}
+{% endblock %}
+
+{% block content %}
+    {% include 'mail/admin/_welcome.html.twig' %}
+{% endblock %}
