@@ -8,7 +8,7 @@ use ApiPlatform\Core\DataProvider\ContextAwareCollectionDataProviderInterface;
 use ApiPlatform\Core\DataProvider\ItemDataProviderInterface;
 use ApiPlatform\Core\DataProvider\Pagination;
 use ApiPlatform\Core\DataProvider\RestrictedDataProviderInterface;
-use App\Admin\Application\DataTransfer\Admin;
+use App\Admin\Domain\DataTransfer\Admin;
 use App\Admin\Application\UseCase\Query\Find\FindQuery;
 use App\Admin\Application\UseCase\Query\List\ListQuery;
 use App\Common\Application\Query\QueryBusInterface;

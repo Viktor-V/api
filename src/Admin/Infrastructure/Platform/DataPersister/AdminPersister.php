@@ -6,9 +6,8 @@ namespace App\Admin\Infrastructure\Platform\DataPersister;
 
 use ApiPlatform\Core\DataPersister\ContextAwareDataPersisterInterface;
 use App\Admin\Application\UseCase\Command\Register\RegisterCommand;
-use App\Admin\Application\DataTransfer\Admin;
+use App\Admin\Domain\DataTransfer\Admin;
 use App\Common\Application\Command\CommandBusInterface;
-use Symfony\Component\Uid\Uuid;
 
 class AdminPersister implements ContextAwareDataPersisterInterface
 {
@@ -26,14 +25,14 @@ class AdminPersister implements ContextAwareDataPersisterInterface
     {
         /** @var Admin $data */
         $this->bus->dispatch(new RegisterCommand(
-            $uuid = Uuid::v4()->__toString(),
+            $data->uuid,
             $data->email,
             $data->firstname,
             $data->lastname,
             $data->password
         ));
 
-        return Admin::initialization($uuid, $data->email, $data->firstname, $data->lastname, $data->password);
+        return $data;
     }
 
     public function remove($data, array $context = []): void

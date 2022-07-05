@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Admin\Application\UseCase\Query\List;
 
-use App\Admin\Application\DataTransfer\Admin;
+use App\Admin\Domain\DataTransfer\Admin;
 use App\Common\Application\Query\QueryHandlerInterface;
 use Doctrine\DBAL\Connection;
 use Generator;
@@ -28,7 +28,7 @@ class ListHandler implements QueryHandlerInterface
 
         $rows = $queryBuilder->executeQuery()->fetchAllAssociative();
         foreach ($rows as $row) {
-            yield Admin::initialization(
+            yield new Admin(
                 (string) $row['uuid'],
                 (string) $row['email'],
                 (string) $row['firstname'],

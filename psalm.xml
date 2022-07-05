@@ -14,11 +14,17 @@
     </projectFiles>
 
     <issueHandlers>
-        <PropertyNotSetInConstructor>
+        <ArgumentTypeCoercion>
             <errorLevel type="suppress">
-                <directory name="src/*/Application/DataTransfer"/>
+                <file name="src/Common/Infrastructure/Platform/DataTransformer/InputDataTransformer.php"/>
             </errorLevel>
-        </PropertyNotSetInConstructor>
+        </ArgumentTypeCoercion>
+
+        <InvalidScalarArgument>
+            <errorLevel type="suppress">
+                <file name="src/Common/Infrastructure/Platform/DataTransformer/InputDataTransformer.php"/>
+            </errorLevel>
+        </InvalidScalarArgument>
     </issueHandlers>
 
     <plugins>

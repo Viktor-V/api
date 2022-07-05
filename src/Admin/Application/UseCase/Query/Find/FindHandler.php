@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Admin\Application\UseCase\Query\Find;
 
-use App\Admin\Application\DataTransfer\Admin;
+use App\Admin\Domain\DataTransfer\Admin;
 use App\Common\Application\Query\QueryHandlerInterface;
 use Doctrine\DBAL\Connection;
 
@@ -29,7 +29,7 @@ class FindHandler implements QueryHandlerInterface
             return null;
         }
 
-        return Admin::initialization(
+        return new Admin(
             (string) $row['uuid'],
             (string) $row['email'],
             (string) $row['firstname'],
