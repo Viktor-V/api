@@ -4,48 +4,19 @@ declare(strict_types=1);
 
 namespace App\Admin\Application\UseCase\Query\List;
 
-use App\Admin\Domain\DataTransfer\Admin;
+use App\Admin\Domain\ReadModel\AdminListQueryInterface;
 use App\Common\Application\Query\QueryHandlerInterface;
-use Doctrine\DBAL\Connection;
 use Generator;
 
 class ListHandler implements QueryHandlerInterface
 {
     public function __construct(
-        private Connection $connection
+        private AdminListQueryInterface $adminListQuery
     ) {
     }
 
     public function __invoke(ListQuery $query): Generator
     {
-        $queryBuilder = $this->connection->createQueryBuilder();
-        $queryBuilder
-            ->select('*')
-            ->from('admin');
-
-        $queryBuilder->setFirstResult(($query->page - 1) * $query->limit);
-        $queryBuilder->setMaxResults($query->limit);
-
-        $rows = $queryBuilder->executeQuery()->fetchAllAssociative();
-        foreach ($rows as $row) {
-            yield new Admin(
-                (string) $row['uuid'],
-                (string) $row['email'],
-                (string) $row['firstname'],
-                (string) $row['lastname'],
-                (string) $row['password']
-            );
-        }
-
-        $queryBuilder
-            ->resetQueryPart('orderBy')
-            ->setFirstResult(0)
-            ->setMaxResults(null);
-
-        return (int) $queryBuilder
-            ->select('COUNT(*)')
-            ->from('admin')
-            ->executeQuery()
-            ->fetchOne();
+        return $this->adminListQuery->fetch($query->page, $query->limit);
     }
 }
