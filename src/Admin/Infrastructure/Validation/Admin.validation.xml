@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping
+        https://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
+
+    <class name="App\Admin\Domain\DataTransfer\Admin">
+        <property name="uuid">
+            <constraint name="NotBlank"/>
+            <constraint name="Uuid"/>
+        </property>
+
+        <property name="email">
+            <constraint name="NotBlank"/>
+            <constraint name="Email"/>
+        </property>
+
+        <property name="firstname">
+            <constraint name="NotBlank"/>
+            <constraint name="Length">
+                <option name="min">2</option>
+            </constraint>
+        </property>
+
+        <property name="lastname">
+            <constraint name="NotBlank"/>
+            <constraint name="Length">
+                <option name="min">2</option>
+            </constraint>
+        </property>
+
+        <property name="password">
+            <constraint name="NotBlank"/>
+            <constraint name="NotCompromisedPassword"/>
+        </property>
+    </class>
+</constraint-mapping>
