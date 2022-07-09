@@ -16,6 +16,7 @@ use App\Common\Domain\Entity\Embedded\Uuid;
 use App\Admin\Domain\Event\AdminCreatedEvent;
 use App\Common\Domain\Entity\Aggregate;
 use App\Common\Domain\Specification\SpecificationInterface;
+use DomainException;
 use DateTimeImmutable;
 
 final class Admin extends Aggregate
@@ -72,5 +73,16 @@ final class Admin extends Aggregate
         $admin->raise(new AdminRegisteredEvent($email, $name, $plainPassword, $confirmationToken));
 
         return $admin;
+    }
+
+    public function confirm(): void
+    {
+        if ($this->status !== Status::DISABLED) {
+            throw new DomainException('Admin is already confirmed.');
+        }
+
+        $this->status = Status::ACTIVE;
+        $this->confirmationToken = null;
+        $this->updatedAt = new DateTimeImmutable();
     }
 }

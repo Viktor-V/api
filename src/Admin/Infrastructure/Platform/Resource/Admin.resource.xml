@@ -21,6 +21,18 @@
 
         <itemOperations>
             <itemOperation name="get" />
+
+            <itemOperation name="patch_confirmation">
+                <attribute name="method">patch</attribute>
+                <attribute name="path">/admin/{uuid}/confirm/{confirmationToken}</attribute>
+                <attribute name="controller">App\Admin\Infrastructure\Platform\Action\AdminConfirmationAction</attribute>
+                <attribute name="read">false</attribute>
+                <attribute name="input">false</attribute>
+
+                <attribute name="openapi_context">
+                    <attribute name="summary">Confirm signup</attribute>
+                </attribute>
+            </itemOperation>
         </itemOperations>
     </resource>
 </resources>

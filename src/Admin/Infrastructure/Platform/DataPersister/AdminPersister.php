@@ -18,7 +18,15 @@ class AdminPersister implements ContextAwareDataPersisterInterface
 
     public function supports($data, array $context = []): bool
     {
-        return $data instanceof Admin;
+        if (!$data instanceof Admin) {
+            return false;
+        }
+
+        if (isset($context['item_operation_name']) && $context['item_operation_name'] === 'patch_confirmation') {
+            return false;
+        }
+
+        return true;
     }
 
     public function persist($data, array $context = []): object

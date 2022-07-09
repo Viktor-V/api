@@ -55,6 +55,10 @@ services:
         arguments:
             $eventBus: '@event.bus'
 
+    App\Admin\Infrastructure\Platform\Action\:
+        resource: '../src/Admin/Infrastructure/Platform/Action/'
+        tags: [ 'controller.service_arguments' ]
+
     admin.create.specification:
         class: App\Common\Domain\Specification\SpecificationList
         arguments:
@@ -68,3 +72,8 @@ services:
     App\Admin\Application\UseCase\Command\Register\RegisterHandler:
         arguments:
             $specification: '@admin.create.specification'
+            
+    App\Admin\Infrastructure\Platform\OpenApi\PatchConfirmationFactory:
+        decorates: 'api_platform.openapi.factory'
+        arguments: [ '@App\Admin\Infrastructure\Platform\OpenApi\PatchConfirmationFactory.inner' ]
+        autoconfigure: false

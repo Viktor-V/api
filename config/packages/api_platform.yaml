@@ -10,5 +10,7 @@ api_platform:
 
     exception_to_status:
         App\Common\Domain\Assert\InvalidArgumentException: !php/const Symfony\Component\HttpFoundation\Response::HTTP_BAD_REQUEST
+
+        DomainException: !php/const Symfony\Component\HttpFoundation\Response::HTTP_UNPROCESSABLE_ENTITY
         App\Common\Domain\Specification\SpecificationException: !php/const Symfony\Component\HttpFoundation\Response::HTTP_UNPROCESSABLE_ENTITY
         Symfony\Component\Messenger\Exception\HandlerFailedException: !php/const Symfony\Component\HttpFoundation\Response::HTTP_UNPROCESSABLE_ENTITY
