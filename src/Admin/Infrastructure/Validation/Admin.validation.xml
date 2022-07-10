@@ -5,33 +5,62 @@
         https://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
 
     <class name="App\Admin\Domain\DataTransfer\Admin">
-        <property name="uuid">
-            <constraint name="NotBlank"/>
-            <constraint name="Uuid"/>
-        </property>
-
         <property name="email">
-            <constraint name="NotBlank"/>
-            <constraint name="Email"/>
+            <constraint name="NotBlank">
+                <option name="groups">
+                    <value>write</value>
+                </option>
+            </constraint>
+
+            <constraint name="Email">
+                <option name="groups">
+                    <value>write</value>
+                </option>
+            </constraint>
         </property>
 
         <property name="firstname">
-            <constraint name="NotBlank"/>
+            <constraint name="NotBlank">
+                <option name="groups">
+                    <value>write</value>
+                </option>
+            </constraint>
+
             <constraint name="Length">
                 <option name="min">2</option>
+                <option name="groups">
+                    <value>write</value>
+                </option>
             </constraint>
         </property>
 
         <property name="lastname">
-            <constraint name="NotBlank"/>
+            <constraint name="NotBlank">
+                <option name="groups">
+                    <value>write</value>
+                </option>
+            </constraint>
+
             <constraint name="Length">
                 <option name="min">2</option>
+                <option name="groups">
+                    <value>write</value>
+                </option>
             </constraint>
         </property>
 
         <property name="password">
-            <constraint name="NotBlank"/>
-            <constraint name="NotCompromisedPassword"/>
+            <constraint name="NotBlank">
+                <option name="groups">
+                    <value>write</value>
+                </option>
+            </constraint>
+
+            <constraint name="NotCompromisedPassword">
+                <option name="groups">
+                    <value>write</value>
+                </option>
+            </constraint>
         </property>
     </class>
 </constraint-mapping>

@@ -13,20 +13,6 @@
         </ignoreFiles>
     </projectFiles>
 
-    <issueHandlers>
-        <ArgumentTypeCoercion>
-            <errorLevel type="suppress">
-                <file name="src/Common/Infrastructure/Platform/DataTransformer/InputDataTransformer.php"/>
-            </errorLevel>
-        </ArgumentTypeCoercion>
-
-        <InvalidScalarArgument>
-            <errorLevel type="suppress">
-                <file name="src/Common/Infrastructure/Platform/DataTransformer/InputDataTransformer.php"/>
-            </errorLevel>
-        </InvalidScalarArgument>
-    </issueHandlers>
-
     <plugins>
         <pluginClass class="Psalm\SymfonyPsalmPlugin\Plugin"/>
         <pluginClass class="Weirdan\DoctrinePsalmPlugin\Plugin"/>

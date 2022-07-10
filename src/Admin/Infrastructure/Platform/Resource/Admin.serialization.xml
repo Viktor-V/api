@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<serializer xmlns="http://symfony.com/schema/dic/serializer-mapping"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://symfony.com/schema/dic/serializer-mapping
+        https://symfony.com/schema/dic/serializer-mapping/serializer-mapping-1.0.xsd"
+>
+    <class name="App\Admin\Domain\DataTransfer\Admin">
+        <attribute name="uuid">
+            <group>read</group>
+        </attribute>
+
+        <attribute name="email">
+            <group>read</group>
+            <group>write</group>
+        </attribute>
+
+        <attribute name="firstname">
+            <group>read</group>
+            <group>write</group>
+        </attribute>
+
+        <attribute name="lastname">
+            <group>read</group>
+            <group>write</group>
+        </attribute>
+
+        <attribute name="status">
+            <group>read</group>
+        </attribute>
+
+        <attribute name="password">
+            <group>write</group>
+        </attribute>
+
+        <attribute name="createdAt">
+            <group>read</group>
+        </attribute>
+
+        <attribute name="updatedAt">
+            <group>read</group>
+        </attribute>
+
+        <attribute name="confirmationToken">
+            <group>confirm</group>
+        </attribute>
+    </class>
+</serializer>

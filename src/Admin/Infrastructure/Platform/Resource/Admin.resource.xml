@@ -7,9 +7,17 @@
     <resource class="App\Admin\Domain\DataTransfer\Admin" shortName="Admin" description="Admin">
         <property name="uuid" identifier="true" writable="false"/>
 
-        <property name="password" readable="false"/>
+        <attribute name="normalization_context">
+            <attribute name="groups">
+                <attribute>read</attribute>
+            </attribute>
+        </attribute>
 
-        <attribute name="input">App\Admin\Domain\DataTransfer\AdminWrite</attribute>
+        <attribute name="denormalization_context">
+            <attribute name="groups">
+                <attribute>write</attribute>
+            </attribute>
+        </attribute>
 
         <collectionOperations>
             <collectionOperation name="get">
@@ -24,10 +32,13 @@
 
             <itemOperation name="patch_confirmation">
                 <attribute name="method">patch</attribute>
-                <attribute name="path">/admin/{uuid}/confirm/{confirmationToken}</attribute>
-                <attribute name="controller">App\Admin\Infrastructure\Platform\Action\AdminConfirmationAction</attribute>
-                <attribute name="read">false</attribute>
-                <attribute name="input">false</attribute>
+                <attribute name="path">/admin/{uuid}/confirm</attribute>
+
+                <attribute name="denormalization_context">
+                    <attribute name="groups">
+                        <attribute>confirm</attribute>
+                    </attribute>
+                </attribute>
 
                 <attribute name="openapi_context">
                     <attribute name="summary">Confirm signup</attribute>

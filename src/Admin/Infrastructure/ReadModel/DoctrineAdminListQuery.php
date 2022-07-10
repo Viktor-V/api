@@ -27,13 +27,14 @@ class DoctrineAdminListQuery extends AbstractDoctrineQuery implements AdminListQ
 
         $rows = $this->queryBuilder->executeQuery()->fetchAllAssociative();
         foreach ($rows as $row) {
-            yield new Admin(
-                (string) $row['uuid'],
-                (string) $row['email'],
-                (string) $row['firstname'],
-                (string) $row['lastname'],
-                (string) $row['password']
-            );
+            yield (new Admin())
+                ->setUuid((string) $row['uuid'])
+                ->setEmail((string) $row['email'])
+                ->setFirstname((string) $row['firstname'])
+                ->setLastname((string) $row['lastname'])
+                ->setStatus((string) $row['status'])
+                ->setCreatedAt((string) $row['created_at'])
+                ->setUpdatedAt((string) $row['updated_at']);
         }
 
         return $this->fetchCount();

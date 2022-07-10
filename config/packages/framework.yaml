@@ -16,6 +16,11 @@ framework:
     #fragments: true
     php_errors:
         log: true
+        
+    serializer:
+        mapping:
+            paths:
+                - '%kernel.project_dir%/src/Admin/Infrastructure/Platform/Resource/Admin.serialization.xml'
 
 when@test:
     framework:
