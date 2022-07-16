@@ -72,3 +72,11 @@ services:
     App\Admin\Application\UseCase\Command\Update\UpdateHandler:
         arguments:
             $specification: '@admin.create.specification'
+
+    App\Common\Infrastructure\Platform\Serializer\ApiNormalizer:
+        # By default .inner is passed as argument
+        decorates: 'api_platform.jsonld.normalizer.item'
+
+    'app.serializer.normalizer.item.json':
+        class: 'App\Common\Infrastructure\Platform\Serializer\ApiNormalizer'
+        decorates: 'api_platform.serializer.normalizer.item'
