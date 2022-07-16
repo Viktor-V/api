@@ -1,4 +1,9 @@
 api_platform:
+    title: "Api Platform"
+
+    doctrine:
+        enabled: false
+
     mapping:
         paths:
             - '%kernel.project_dir%/src/Admin/Infrastructure/Platform/Resource/Admin.resource.xml'
