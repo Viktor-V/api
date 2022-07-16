@@ -75,6 +75,34 @@ final class Admin extends Aggregate
         return $admin;
     }
 
+    public function update(
+        Email $email,
+        Name $name,
+        SpecificationInterface $specification
+    ): void {
+        if ($this->email->__toString() !== $email->__toString()) {
+            $specification->isSatisfied($email);
+            $this->email = $email;
+        }
+
+        if ($this->name->__toString() !== $name->__toString()) {
+            $this->name = $name;
+        }
+
+        $this->updatedAt = new DateTimeImmutable();
+    }
+
+    public function block(): void
+    {
+        if ($this->status === Status::BLOCKED) {
+            throw new DomainException('Admin is already blocked.');
+        }
+
+        $this->status = Status::BLOCKED;
+        $this->confirmationToken = null;
+        $this->updatedAt = new DateTimeImmutable();
+    }
+
     public function confirm(): void
     {
         if ($this->status !== Status::DISABLED) {

@@ -19,6 +19,10 @@
             </attribute>
         </attribute>
 
+        <attribute name="validation_groups">
+            <attribute>write</attribute>
+        </attribute>
+
         <collectionOperations>
             <collectionOperation name="get">
                 <attribute name="pagination_client_items_per_page">true</attribute>
@@ -29,6 +33,57 @@
 
         <itemOperations>
             <itemOperation name="get" />
+            <itemOperation name="patch">
+                <attribute name="denormalization_context">
+                    <attribute name="groups">
+                        <attribute>update</attribute>
+                    </attribute>
+                </attribute>
+
+                <attribute name="validation_groups">
+                    <attribute>update</attribute>
+                </attribute>
+            </itemOperation>
+            <itemOperation name="delete" />
+
+            <itemOperation name="patch_block">
+                <attribute name="method">patch</attribute>
+                <attribute name="path">/admin/{uuid}/block</attribute>
+
+                <attribute name="denormalization_context">
+                    <attribute name="groups">
+                        <attribute>block</attribute>
+                    </attribute>
+                </attribute>
+
+                <attribute name="validation_groups">
+                    <attribute>block</attribute>
+                </attribute>
+
+                <attribute name="openapi_context">
+                    <attribute name="summary">Block admin</attribute>
+
+                    <attribute name="requestBody">
+                        <attribute name="required">true</attribute>
+                        <attribute name="content">
+                            <attribute name="application/merge-patch+json">
+                                <attribute name="schema">
+                                    <attribute name="type">object</attribute>
+                                    <attribute name="properties">
+                                        <attribute name="status">
+                                            <attribute name="type">string</attribute>
+                                        </attribute>
+                                    </attribute>
+                                </attribute>
+
+                                <attribute name="example">
+                                    <attribute name="status">blocked</attribute> <!-- TODO: is it possible to use constant? -->
+                                </attribute>
+                            </attribute>
+                        </attribute>
+                    </attribute>
+                </attribute>
+            </itemOperation>
 
             <itemOperation name="patch_confirmation">
                 <attribute name="method">patch</attribute>

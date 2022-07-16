@@ -12,20 +12,24 @@
         <attribute name="email">
             <group>read</group>
             <group>write</group>
+            <group>update</group>
         </attribute>
 
         <attribute name="firstname">
             <group>read</group>
             <group>write</group>
+            <group>update</group>
         </attribute>
 
         <attribute name="lastname">
             <group>read</group>
             <group>write</group>
+            <group>update</group>
         </attribute>
 
         <attribute name="status">
             <group>read</group>
+            <group>block</group>
         </attribute>
 
         <attribute name="password">

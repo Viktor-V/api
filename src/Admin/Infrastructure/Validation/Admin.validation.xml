@@ -15,6 +15,7 @@
             <constraint name="Email">
                 <option name="groups">
                     <value>write</value>
+                    <value>update</value>
                 </option>
             </constraint>
         </property>
@@ -30,6 +31,7 @@
                 <option name="min">2</option>
                 <option name="groups">
                     <value>write</value>
+                    <value>update</value>
                 </option>
             </constraint>
         </property>
@@ -45,6 +47,7 @@
                 <option name="min">2</option>
                 <option name="groups">
                     <value>write</value>
+                    <value>update</value>
                 </option>
             </constraint>
         </property>
@@ -59,6 +62,16 @@
             <constraint name="NotCompromisedPassword">
                 <option name="groups">
                     <value>write</value>
+                </option>
+            </constraint>
+        </property>
+
+        <property name="status">
+            <constraint name="IdenticalTo">
+                <option name="value">blocked</option> <!-- TODO: is it possible to use constant? -->
+
+                <option name="groups">
+                    <value>block</value>
                 </option>
             </constraint>
         </property>
