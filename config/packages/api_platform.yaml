@@ -12,6 +12,10 @@ api_platform:
         json: ['application/merge-patch+json']
     swagger:
         versions: [3]
+        api_keys:
+            JWT:
+                name: "Authorization"
+                type: header
 
     exception_to_status:
         App\Common\Domain\Assert\InvalidArgumentException: !php/const Symfony\Component\HttpFoundation\Response::HTTP_BAD_REQUEST

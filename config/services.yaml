@@ -74,9 +74,12 @@ services:
             $specification: '@admin.create.specification'
 
     App\Common\Infrastructure\Platform\Serializer\ApiNormalizer:
-        # By default .inner is passed as argument
         decorates: 'api_platform.jsonld.normalizer.item'
 
-    'app.serializer.normalizer.item.json':
+    'app.common.infrastructure.platform.serializer.api.normalizer':
         class: 'App\Common\Infrastructure\Platform\Serializer\ApiNormalizer'
         decorates: 'api_platform.serializer.normalizer.item'
+        
+    App\Security\Infrastructure\Platform\Decorator\SwaggerAuthDecorator:
+        decorates: 'api_platform.openapi.factory'
+        arguments: [ '@.inner' ]

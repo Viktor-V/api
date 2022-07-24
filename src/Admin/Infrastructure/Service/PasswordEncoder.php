@@ -7,8 +7,8 @@ namespace App\Admin\Infrastructure\Service;
 use App\Admin\Application\Service\PasswordEncoderInterface;
 use App\Admin\Domain\Entity\Embedded\Password;
 use App\Admin\Domain\Entity\Embedded\PlainPassword;
-use App\Admin\Infrastructure\Security\AdminIdentity;
 use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 class PasswordEncoder implements PasswordEncoderInterface
 {
@@ -21,7 +21,7 @@ class PasswordEncoder implements PasswordEncoderInterface
     {
         return new Password(
             $this->passwordHasherFactory
-                ->getPasswordHasher(AdminIdentity::class)
+                ->getPasswordHasher(PasswordAuthenticatedUserInterface::class)
                 ->hash($password->__toString())
         );
     }
