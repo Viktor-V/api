@@ -7,6 +7,7 @@ namespace App\Security\Infrastructure\Repository;
 use App\Admin\Domain\Entity\Embedded\Email;
 use App\Admin\Domain\Entity\Embedded\Password;
 use App\Admin\Domain\Entity\Embedded\Role;
+use App\Admin\Domain\Entity\Embedded\Status;
 use App\Security\Domain\Entity\AdminIdentity;
 use App\Security\Domain\Repository\AdminIdentityRepositoryInterface;
 use Doctrine\DBAL\Connection;
@@ -23,7 +24,7 @@ class DoctrineAdminIdentityRepository implements AdminIdentityRepositoryInterfac
         $queryBuilder = $this->connection->createQueryBuilder();
 
         $queryBuilder
-            ->select('role', 'password')
+            ->select('role', 'password', 'status')
             ->from('admin')
             ->andWhere('email = :email')
             ->setParameter('email', $email->__toString());
@@ -36,7 +37,8 @@ class DoctrineAdminIdentityRepository implements AdminIdentityRepositoryInterfac
         return new AdminIdentity(
             $email,
             new Password((string) $row['password']),
-            Role::from((string) $row['role'])
+            Role::from((string) $row['role']),
+            Status::from((string) $row['status']),
         );
     }
 }

@@ -6,7 +6,7 @@ namespace App\Admin\Domain\Entity\Embedded;
 
 enum Status: string
 {
-    case ACTIVE = 'active';
+    case ACTIVATED = 'activated';
     case DISABLED = 'disabled';
     case BLOCKED = 'blocked';
 }

@@ -49,7 +49,7 @@ final class Admin extends Aggregate
         SpecificationInterface $specification
     ): self {
         $role = Role::ROLE_SUPER_ADMIN;
-        $status = Status::ACTIVE;
+        $status = Status::ACTIVATED;
 
         $admin = new self($uuid, $email, $name, $password, $role, $status, $specification);
         $admin->raise(new AdminCreatedEvent($email, $name, $plainPassword));
@@ -109,7 +109,7 @@ final class Admin extends Aggregate
             throw new DomainException('Admin is already confirmed.');
         }
 
-        $this->status = Status::ACTIVE;
+        $this->status = Status::ACTIVATED;
         $this->confirmationToken = null;
         $this->updatedAt = new DateTimeImmutable();
     }

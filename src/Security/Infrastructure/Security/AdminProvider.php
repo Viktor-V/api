@@ -7,6 +7,7 @@ namespace App\Security\Infrastructure\Security;
 use App\Admin\Domain\Entity\Embedded\Email;
 use App\Security\Domain\Entity\AdminIdentity;
 use App\Security\Domain\Repository\AdminIdentityRepositoryInterface;
+use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UserNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
@@ -26,6 +27,10 @@ class AdminProvider implements UserProviderInterface
             throw new UserNotFoundException();
         }
 
+        if ($adminIdentity->isActive() === false) {
+            throw new UnsupportedUserException();
+        }
+
         return $adminIdentity;
     }
 
@@ -35,6 +40,10 @@ class AdminProvider implements UserProviderInterface
 
         if (!$adminIdentity) {
             throw new UserNotFoundException();
+        }
+
+        if ($adminIdentity->isActive() === false) {
+            throw new UnsupportedUserException();
         }
 
         return $adminIdentity;

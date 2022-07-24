@@ -95,8 +95,37 @@
                     </attribute>
                 </attribute>
 
+                <attribute name="validation_groups">
+                    <attribute>confirm</attribute>
+                </attribute>
+
                 <attribute name="openapi_context">
                     <attribute name="summary">Confirm signup</attribute>
+
+                    <attribute name="requestBody">
+                        <attribute name="required">true</attribute>
+                        <attribute name="content">
+                            <attribute name="application/merge-patch+json">
+                                <attribute name="schema">
+                                    <attribute name="type">object</attribute>
+                                    <attribute name="properties">
+                                        <attribute name="confirmationToken">
+                                            <attribute name="type">string</attribute>
+                                        </attribute>
+
+                                        <attribute name="status">
+                                            <attribute name="type">string</attribute>
+                                        </attribute>
+                                    </attribute>
+                                </attribute>
+
+                                <attribute name="example">
+                                    <attribute name="confirmationToken">token</attribute>
+                                    <attribute name="status">activated</attribute> <!-- TODO: is it possible to use constant? -->
+                                </attribute>
+                            </attribute>
+                        </attribute>
+                    </attribute>
                 </attribute>
             </itemOperation>
         </itemOperations>

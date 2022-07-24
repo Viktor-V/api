@@ -30,6 +30,7 @@
         <attribute name="status">
             <group>read</group>
             <group>block</group>
+            <group>confirm</group>
         </attribute>
 
         <attribute name="password">
