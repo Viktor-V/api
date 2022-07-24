@@ -22,8 +22,8 @@ class SwaggerAuthDecorator implements OpenApiFactoryInterface
     public function __invoke(array $context = []): OpenApi
     {
         $openApi = ($this->decorated)($context);
-        $schemas = $openApi->getComponents()->getSchemas();
 
+        $schemas = $openApi->getComponents()->getSchemas();
         if (!$schemas) {
             throw new RuntimeException('Schemas not defined.');
         }
@@ -83,6 +83,17 @@ class SwaggerAuthDecorator implements OpenApiFactoryInterface
             ),
         );
         $openApi->getPaths()->addPath('/api/auth', $pathItem);
+
+        $schemas = $openApi->getComponents()->getSchemas();
+        if (!$schemas) {
+            throw new RuntimeException('Security schemas not defined.');
+        }
+
+        $schemas['JWT'] = new ArrayObject([
+            'type' => 'http',
+            'scheme' => 'bearer',
+            'bearerFormat' => 'JWT'
+        ]);
 
         return $openApi;
     }
