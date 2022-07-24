@@ -48,7 +48,7 @@
 
             <itemOperation name="patch_block">
                 <attribute name="method">patch</attribute>
-                <attribute name="path">/admin/{uuid}/block</attribute>
+                <attribute name="path">/admins/{uuid}/block</attribute>
 
                 <attribute name="denormalization_context">
                     <attribute name="groups">
@@ -87,7 +87,7 @@
 
             <itemOperation name="patch_confirmation">
                 <attribute name="method">patch</attribute>
-                <attribute name="path">/admin/{uuid}/confirm</attribute>
+                <attribute name="path">/admins/{uuid}/confirm</attribute>
 
                 <attribute name="denormalization_context">
                     <attribute name="groups">
