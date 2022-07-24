@@ -31,7 +31,13 @@ class AdminProvider implements UserProviderInterface
 
     public function refreshUser(UserInterface $user): UserInterface
     {
-        return $this->repository->findByEmail(new Email($user->getUserIdentifier()));
+        $adminIdentity = $this->repository->findByEmail(new Email($user->getUserIdentifier()));
+
+        if (!$adminIdentity) {
+            throw new UserNotFoundException();
+        }
+
+        return $adminIdentity;
     }
 
     public function supportsClass(string $class): bool

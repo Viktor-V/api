@@ -35,8 +35,8 @@ class DoctrineAdminIdentityRepository implements AdminIdentityRepositoryInterfac
 
         return new AdminIdentity(
             $email,
-            new Password($row['password']),
-            Role::from($row['role'])
+            new Password((string) $row['password']),
+            Role::from((string) $row['role'])
         );
     }
 }
