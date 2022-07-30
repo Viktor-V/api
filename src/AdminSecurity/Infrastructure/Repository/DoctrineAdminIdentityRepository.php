@@ -8,9 +8,7 @@ use App\Admin\Domain\Entity\Embedded\Email;
 use App\Admin\Domain\Entity\Embedded\Password;
 use App\Admin\Domain\Entity\Embedded\Role;
 use App\Admin\Domain\Entity\Embedded\Status;
-use App\Common\Domain\Entity\Embedded\Uuid;
-use App\AdminSecurity\Domain\Entity\AdminIdentity;
-use App\AdminSecurity\Domain\Repository\AdminIdentityRepositoryInterface;
+use App\AdminSecurity\Infrastructure\Security\AdminIdentity;
 use Doctrine\DBAL\Connection;
 
 class DoctrineAdminIdentityRepository implements AdminIdentityRepositoryInterface
