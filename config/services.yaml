@@ -61,7 +61,7 @@ services:
             $specifications:
                 - '@App\Admin\Domain\Specification\UniqueEmailSpecificationInterface'
 
-    App\Admin\Application\UseCase\Command\Create\CreateHandler:
+    App\Admin\Application\UseCase\Command\Create\CreateSuperHandler:
         arguments:
             $specification: '@admin.create.specification'
 

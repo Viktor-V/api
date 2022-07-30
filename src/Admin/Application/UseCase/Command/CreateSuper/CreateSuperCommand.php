@@ -10,7 +10,7 @@ use App\Admin\Domain\Entity\Embedded\PlainPassword;
 use App\Common\Application\Command\CommandInterface;
 use App\Common\Domain\Entity\Embedded\Uuid;
 
-final class CreateCommand implements CommandInterface
+final class CreateSuperCommand implements CommandInterface
 {
     public readonly Uuid $uuid;
     public readonly Email $email;

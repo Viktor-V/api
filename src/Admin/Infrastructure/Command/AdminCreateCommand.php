@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Admin\Infrastructure\Command;
 
-use App\Admin\Application\UseCase\Command\Create\CreateCommand;
+use App\Admin\Application\UseCase\Command\Create\CreateSuperCommand;
 use App\Common\Application\Command\CommandBusInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -40,7 +40,7 @@ class AdminCreateCommand extends Command
             $lastname = (string) $io->ask('Please enter admin lastname');
             $password = (string) $io->askHidden('Please enter admin password');
 
-            $this->bus->dispatch(new CreateCommand(
+            $this->bus->dispatch(new CreateSuperCommand(
                 Uuid::v4()->__toString(),
                 $email,
                 $firstname,

@@ -13,7 +13,7 @@ use App\Admin\Domain\Entity\Embedded\Role;
 use App\Admin\Domain\Entity\Embedded\Status;
 use App\Admin\Domain\Event\AdminRegisteredEvent;
 use App\Common\Domain\Entity\Embedded\Uuid;
-use App\Admin\Domain\Event\AdminCreatedEvent;
+use App\Admin\Domain\Event\SuperAdminCreatedEvent;
 use App\Common\Domain\Entity\Aggregate;
 use App\Common\Domain\Specification\SpecificationInterface;
 use DomainException;
@@ -40,7 +40,7 @@ final class Admin extends Aggregate
         $this->updatedAt = null;
     }
 
-    public static function create(
+    public static function createSuper(
         Uuid $uuid,
         Email $email,
         Name $name,
@@ -52,7 +52,7 @@ final class Admin extends Aggregate
         $status = Status::ACTIVATED;
 
         $admin = new self($uuid, $email, $name, $password, $role, $status, $specification);
-        $admin->raise(new AdminCreatedEvent($email, $name, $plainPassword));
+        $admin->raise(new SuperAdminCreatedEvent($email, $name, $plainPassword));
 
         return $admin;
     }

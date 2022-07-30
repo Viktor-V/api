@@ -10,7 +10,7 @@ use App\Admin\Domain\Repository\AdminRepositoryInterface;
 use App\Common\Application\Command\CommandHandlerInterface;
 use App\Common\Domain\Specification\SpecificationInterface;
 
-final class CreateHandler implements CommandHandlerInterface
+final class CreateSuperHandler implements CommandHandlerInterface
 {
     public function __construct(
         private PasswordEncoderInterface $passwordEncoder,
@@ -19,10 +19,10 @@ final class CreateHandler implements CommandHandlerInterface
     ) {
     }
 
-    public function __invoke(CreateCommand $command): void
+    public function __invoke(CreateSuperCommand $command): void
     {
         $this->adminRepository->save(
-            Admin::create(
+            Admin::createSuper(
                 $command->uuid,
                 $command->email,
                 $command->name,
