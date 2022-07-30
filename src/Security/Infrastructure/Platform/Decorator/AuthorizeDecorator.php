@@ -12,7 +12,7 @@ use ApiPlatform\Core\OpenApi\Model\Operation;
 use RuntimeException;
 use ArrayObject;
 
-class SwaggerAuthDecorator implements OpenApiFactoryInterface
+class AuthorizeDecorator implements OpenApiFactoryInterface
 {
     public function __construct(
         private OpenApiFactoryInterface $decorated
@@ -83,17 +83,6 @@ class SwaggerAuthDecorator implements OpenApiFactoryInterface
             ),
         );
         $openApi->getPaths()->addPath('/api/auth', $pathItem);
-
-        $schemas = $openApi->getComponents()->getSchemas();
-        if (!$schemas) {
-            throw new RuntimeException('Security schemas not defined.');
-        }
-
-        $schemas['JWT'] = new ArrayObject([
-            'type' => 'http',
-            'scheme' => 'bearer',
-            'bearerFormat' => 'JWT'
-        ]);
 
         return $openApi;
     }

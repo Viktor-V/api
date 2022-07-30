@@ -80,6 +80,17 @@ services:
         class: 'App\Common\Infrastructure\Platform\Serializer\ApiNormalizer'
         decorates: 'api_platform.serializer.normalizer.item'
         
-    App\Security\Infrastructure\Platform\Decorator\SwaggerAuthDecorator:
+    App\Security\Infrastructure\Platform\Decorator\SecurityDecorator:
         decorates: 'api_platform.openapi.factory'
-        arguments: [ '@.inner' ]
+        arguments: 
+            - '@App\Security\Infrastructure\Platform\Decorator\SecurityDecorator.inner'
+        
+    App\Security\Infrastructure\Platform\Decorator\AuthorizeDecorator:
+        decorates: 'api_platform.openapi.factory'
+        arguments: 
+            - '@App\Security\Infrastructure\Platform\Decorator\AuthorizeDecorator.inner'
+    
+    App\Security\Infrastructure\Platform\Decorator\MeDecorator:
+        decorates: 'api_platform.openapi.factory'
+        arguments:
+            - '@App\Security\Infrastructure\Platform\Decorator\MeDecorator.inner'

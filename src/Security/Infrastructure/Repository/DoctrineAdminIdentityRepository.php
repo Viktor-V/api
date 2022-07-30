@@ -8,6 +8,7 @@ use App\Admin\Domain\Entity\Embedded\Email;
 use App\Admin\Domain\Entity\Embedded\Password;
 use App\Admin\Domain\Entity\Embedded\Role;
 use App\Admin\Domain\Entity\Embedded\Status;
+use App\Common\Domain\Entity\Embedded\Uuid;
 use App\Security\Domain\Entity\AdminIdentity;
 use App\Security\Domain\Repository\AdminIdentityRepositoryInterface;
 use Doctrine\DBAL\Connection;

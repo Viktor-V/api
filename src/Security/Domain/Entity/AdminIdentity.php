@@ -28,7 +28,7 @@ class AdminIdentity implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function eraseCredentials(): void
     {
-        return;
+        $this->password = new Password('secret');
     }
 
     public function getUserIdentifier(): string

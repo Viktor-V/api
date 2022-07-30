@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<resources xmlns="https://api-platform.com/schema/metadata"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="https://api-platform.com/schema/metadata
+        https://api-platform.com/schema/metadata/metadata-2.0.xsd">
+
+    <resource class="App\Security\Domain\DataTransfer\Me" shortName="Auth" description="Auth">
+        <property name="uuid" identifier="true" writable="false"/>
+
+        <collectionOperations><!-- null --></collectionOperations>
+
+        <itemOperations>
+            <itemOperation name="get_me">
+                <attribute name="method">get</attribute>
+                <attribute name="path">/me</attribute>
+
+                <attribute name="defaults">
+                    <attribute name="uuid">0</attribute>
+                </attribute>
+
+                <attribute name="openapi_context">
+                    <attribute name="summary">Get profile data</attribute>
+                </attribute>
+            </itemOperation>
+        </itemOperations>
+    </resource>
+</resources>
