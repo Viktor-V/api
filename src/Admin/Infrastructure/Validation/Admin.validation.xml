@@ -82,6 +82,14 @@
                     <value>confirm</value>
                 </option>
             </constraint>
+
+            <constraint name="IdenticalTo">
+                <option name="value">activated</option> <!-- TODO: is it possible to use constant? -->
+
+                <option name="groups">
+                    <value>activate</value>
+                </option>
+            </constraint>
         </property>
     </class>
 </constraint-mapping>

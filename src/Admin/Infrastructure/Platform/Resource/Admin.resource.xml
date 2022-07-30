@@ -85,22 +85,22 @@
                 </attribute>
             </itemOperation>
 
-            <itemOperation name="patch_confirmation">
+            <itemOperation name="patch_activate">
                 <attribute name="method">patch</attribute>
-                <attribute name="path">/admins/{uuid}/confirm</attribute>
+                <attribute name="path">/admins/{uuid}/activate</attribute>
 
                 <attribute name="denormalization_context">
                     <attribute name="groups">
-                        <attribute>confirm</attribute>
+                        <attribute>activate</attribute>
                     </attribute>
                 </attribute>
 
                 <attribute name="validation_groups">
-                    <attribute>confirm</attribute>
+                    <attribute>activate</attribute>
                 </attribute>
 
                 <attribute name="openapi_context">
-                    <attribute name="summary">Confirm signup</attribute>
+                    <attribute name="summary">Activate admin</attribute>
 
                     <attribute name="requestBody">
                         <attribute name="required">true</attribute>
@@ -109,10 +109,6 @@
                                 <attribute name="schema">
                                     <attribute name="type">object</attribute>
                                     <attribute name="properties">
-                                        <attribute name="confirmationToken">
-                                            <attribute name="type">string</attribute>
-                                        </attribute>
-
                                         <attribute name="status">
                                             <attribute name="type">string</attribute>
                                         </attribute>
@@ -120,7 +116,6 @@
                                 </attribute>
 
                                 <attribute name="example">
-                                    <attribute name="confirmationToken">token</attribute>
                                     <attribute name="status">activated</attribute> <!-- TODO: is it possible to use constant? -->
                                 </attribute>
                             </attribute>

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Admin\Infrastructure\Platform\DataPersister;
 
 use ApiPlatform\Core\DataPersister\ContextAwareDataPersisterInterface;
+use App\Admin\Application\UseCase\Command\Activate\ActivateCommand;
 use App\Admin\Application\UseCase\Command\Block\BlockCommand;
-use App\Admin\Application\UseCase\Command\Confirm\ConfirmCommand;
 use App\Admin\Application\UseCase\Command\Delete\DeleteCommand;
 use App\Admin\Application\UseCase\Command\Register\RegisterCommand;
 use App\Admin\Application\UseCase\Command\Update\UpdateCommand;
@@ -62,8 +62,8 @@ class AdminPersister implements ContextAwareDataPersisterInterface
                 $admin->getFirstname(),
                 $admin->getLastname()
             )),
-            'patch_confirmation' => $this->bus->dispatch(new ConfirmCommand(
-                $admin->getConfirmationToken()
+            'patch_activate' => $this->bus->dispatch(new ActivateCommand(
+                $admin->getUuid()
             )),
             'patch_block' => $this->bus->dispatch(new BlockCommand(
                 $admin->getUuid()

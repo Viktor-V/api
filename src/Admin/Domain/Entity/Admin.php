@@ -92,6 +92,17 @@ final class Admin extends Aggregate
         $this->updatedAt = new DateTimeImmutable();
     }
 
+    public function activate(): void
+    {
+        if ($this->status === Status::ACTIVATED) {
+            throw new DomainException('Admin is already activated.');
+        }
+
+        $this->status = Status::ACTIVATED;
+        $this->confirmationToken = null;
+        $this->updatedAt = new DateTimeImmutable();
+    }
+
     public function block(): void
     {
         if ($this->status === Status::BLOCKED) {
@@ -105,12 +116,6 @@ final class Admin extends Aggregate
 
     public function confirm(): void
     {
-        if ($this->status !== Status::DISABLED) {
-            throw new DomainException('Admin is already confirmed.');
-        }
-
-        $this->status = Status::ACTIVATED;
-        $this->confirmationToken = null;
-        $this->updatedAt = new DateTimeImmutable();
+        $this->activate();
     }
 }
