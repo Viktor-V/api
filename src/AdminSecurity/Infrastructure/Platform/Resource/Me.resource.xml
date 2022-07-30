@@ -4,7 +4,7 @@
            xsi:schemaLocation="https://api-platform.com/schema/metadata
         https://api-platform.com/schema/metadata/metadata-2.0.xsd">
 
-    <resource class="App\Security\Domain\DataTransfer\Me" shortName="Auth" description="Auth">
+    <resource class="App\AdminSecurity\Domain\DataTransfer\Me" shortName="Admin Security" description="Auth">
         <property name="uuid" identifier="true" writable="false"/>
 
         <collectionOperations><!-- null --></collectionOperations>
@@ -12,7 +12,7 @@
         <itemOperations>
             <itemOperation name="get_me">
                 <attribute name="method">get</attribute>
-                <attribute name="path">/me</attribute>
+                <attribute name="path">/admin/auth/me</attribute>
 
                 <attribute name="defaults">
                     <attribute name="uuid">0</attribute>

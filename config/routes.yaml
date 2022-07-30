@@ -6,7 +6,7 @@ api:
         permanent: true
 
 api_login_check:
-    path: /api/auth
+    path: /api/admin/auth/login
 
 kernel:
     resource: ../src/Kernel.php

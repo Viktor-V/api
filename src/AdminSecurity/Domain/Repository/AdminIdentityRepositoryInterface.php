@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Security\Domain\Repository;
+namespace App\AdminSecurity\Domain\Repository;
 
 use App\Admin\Domain\Entity\Embedded\Email;
-use App\Security\Domain\Entity\AdminIdentity;
+use App\AdminSecurity\Domain\Entity\AdminIdentity;
 
 interface AdminIdentityRepositoryInterface
 {

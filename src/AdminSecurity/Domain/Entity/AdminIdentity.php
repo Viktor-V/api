@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Security\Domain\Entity;
+namespace App\AdminSecurity\Domain\Entity;
 
 use App\Admin\Domain\Entity\Embedded\Email;
 use App\Admin\Domain\Entity\Embedded\Password;

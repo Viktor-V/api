@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Security\Infrastructure\Platform\DataProvider;
+namespace App\AdminSecurity\Infrastructure\Platform\DataProvider;
 
 use ApiPlatform\Core\DataProvider\ItemDataProviderInterface;
 use ApiPlatform\Core\DataProvider\RestrictedDataProviderInterface;
-use App\Security\Domain\DataTransfer\Me;
+use App\AdminSecurity\Domain\DataTransfer\Me;
 use Symfony\Component\Security\Core\Security;
 
 class MeProvider implements ItemDataProviderInterface, RestrictedDataProviderInterface

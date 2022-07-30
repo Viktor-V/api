@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Security\Domain\DataTransfer;
+namespace App\AdminSecurity\Domain\DataTransfer;
 
 final class Me
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Security\Infrastructure\Platform\Decorator;
+namespace App\AdminSecurity\Infrastructure\Platform\Decorator;
 
 use ApiPlatform\Core\OpenApi\Factory\OpenApiFactoryInterface;
 use ApiPlatform\Core\OpenApi\OpenApi;
@@ -12,7 +12,7 @@ use ApiPlatform\Core\OpenApi\Model\Operation;
 use RuntimeException;
 use ArrayObject;
 
-class ConfirmationDecorator implements OpenApiFactoryInterface
+class SecurityDecorator implements OpenApiFactoryInterface
 {
     public function __construct(
         private OpenApiFactoryInterface $decorated
@@ -22,6 +22,17 @@ class ConfirmationDecorator implements OpenApiFactoryInterface
     public function __invoke(array $context = []): OpenApi
     {
         $openApi = ($this->decorated)($context);
+
+        $schemas = $openApi->getComponents()->getSchemas();
+        if (!$schemas) {
+            throw new RuntimeException('Security schemas not defined.');
+        }
+
+        $schemas['JWT'] = new ArrayObject([
+            'type' => 'http',
+            'scheme' => 'bearer',
+            'bearerFormat' => 'JWT'
+        ]);
 
         return $openApi;
     }

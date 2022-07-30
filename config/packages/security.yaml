@@ -5,7 +5,7 @@ security:
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
         api_admin:
-            id: App\Security\Infrastructure\Security\AdminProvider
+            id: App\AdminSecurity\Infrastructure\Security\AdminProvider
 
     role_hierarchy:
         ROLE_SUPER_ADMIN: [ ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH ]
@@ -16,11 +16,11 @@ security:
             security: false
             
         login:
-            pattern: ^/api/auth
+            pattern: ^/api/admin/auth/login
             stateless: true
             json_login:
                 username_path: email
-                check_path: /api/auth
+                check_path: /api/admin/auth/login
                 success_handler: lexik_jwt_authentication.handler.authentication_success
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
 
@@ -42,8 +42,8 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: ^/api/me, roles: ROLE_ADMIN }
-        - { path: ^/api/auth, roles: PUBLIC_ACCESS }
+        - { path: ^/api/admin/auth/me, roles: ROLE_ADMIN }
+        - { path: ^/api/admin/auth/login, roles: PUBLIC_ACCESS }
         - { path: ^/api/admins, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
 

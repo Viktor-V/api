@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Security\Infrastructure\Security;
+namespace App\AdminSecurity\Infrastructure\Security;
 
 use App\Admin\Domain\Entity\Embedded\Email;
-use App\Security\Domain\Entity\AdminIdentity;
-use App\Security\Domain\Repository\AdminIdentityRepositoryInterface;
+use App\AdminSecurity\Domain\Entity\AdminIdentity;
+use App\AdminSecurity\Domain\Repository\AdminIdentityRepositoryInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UserNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;

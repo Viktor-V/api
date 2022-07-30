@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Security\Infrastructure\Platform\Decorator;
+namespace App\AdminSecurity\Infrastructure\Platform\Decorator;
 
 use ApiPlatform\Core\OpenApi\Factory\OpenApiFactoryInterface;
 use ApiPlatform\Core\OpenApi\OpenApi;
@@ -56,7 +56,7 @@ class AuthorizeDecorator implements OpenApiFactoryInterface
             ref: 'JWT Token',
             post: new Operation(
                 operationId: 'postCredentialsItem',
-                tags: ['Auth'],
+                tags: ['Admin Security'],
                 responses: [
                     '200' => [
                         'description' => 'Get JWT token',
@@ -82,7 +82,7 @@ class AuthorizeDecorator implements OpenApiFactoryInterface
                 ),
             ),
         );
-        $openApi->getPaths()->addPath('/api/auth', $pathItem);
+        $openApi->getPaths()->addPath('/api/admin/auth/login', $pathItem);
 
         return $openApi;
     }

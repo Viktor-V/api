@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Security\Infrastructure\Platform\Decorator;
+namespace App\AdminSecurity\Infrastructure\Platform\Decorator;
 
 use ApiPlatform\Core\OpenApi\Factory\OpenApiFactoryInterface;
 use ApiPlatform\Core\OpenApi\OpenApi;
@@ -11,7 +11,7 @@ use ApiPlatform\Core\OpenApi\Model\Operation;
 
 class MeDecorator implements OpenApiFactoryInterface
 {
-    private const PATH = '/api/me';
+    private const PATH = '/api/admin/auth/me';
 
     public function __construct(
         private OpenApiFactoryInterface $decorated
