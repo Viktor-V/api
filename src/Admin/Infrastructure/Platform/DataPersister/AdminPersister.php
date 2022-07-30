@@ -8,7 +8,7 @@ use ApiPlatform\Core\DataPersister\ContextAwareDataPersisterInterface;
 use App\Admin\Application\UseCase\Command\Activate\ActivateCommand;
 use App\Admin\Application\UseCase\Command\Block\BlockCommand;
 use App\Admin\Application\UseCase\Command\Delete\DeleteCommand;
-use App\Admin\Application\UseCase\Command\Register\RegisterCommand;
+use App\Admin\Application\UseCase\Command\Create\CreateCommand;
 use App\Admin\Application\UseCase\Command\Update\UpdateCommand;
 use App\Admin\Domain\DataTransfer\Admin;
 use App\Admin\Domain\ReadModel\AdminQueryInterface;
@@ -49,7 +49,7 @@ class AdminPersister implements ContextAwareDataPersisterInterface
     private function dispatch(Admin $admin, string $operationName): void
     {
         match ($operationName) {
-            'post' => $this->bus->dispatch(new RegisterCommand(
+            'post' => $this->bus->dispatch(new CreateCommand(
                 $admin->getUuid(),
                 $admin->getEmail(),
                 $admin->getFirstname(),

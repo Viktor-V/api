@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Admin\Application\UseCase\Command\Register;
+namespace App\Admin\Application\UseCase\Command\Create;
 
 use App\Admin\Domain\Entity\Embedded\Email;
 use App\Admin\Domain\Entity\Embedded\Name;
@@ -10,7 +10,7 @@ use App\Admin\Domain\Entity\Embedded\PlainPassword;
 use App\Common\Application\Command\CommandInterface;
 use App\Common\Domain\Entity\Embedded\Uuid;
 
-final class RegisterCommand implements CommandInterface
+final class CreateCommand implements CommandInterface
 {
     public readonly Uuid $uuid;
     public readonly Email $email;

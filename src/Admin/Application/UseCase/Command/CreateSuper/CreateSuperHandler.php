@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Admin\Application\UseCase\Command\Create;
+namespace App\Admin\Application\UseCase\Command\CreateSuper;
 
 use App\Admin\Application\Service\PasswordEncoderInterface;
 use App\Admin\Domain\Entity\Admin;

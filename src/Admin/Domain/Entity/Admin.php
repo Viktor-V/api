@@ -11,7 +11,7 @@ use App\Admin\Domain\Entity\Embedded\Password;
 use App\Admin\Domain\Entity\Embedded\PlainPassword;
 use App\Admin\Domain\Entity\Embedded\Role;
 use App\Admin\Domain\Entity\Embedded\Status;
-use App\Admin\Domain\Event\AdminRegisteredEvent;
+use App\Admin\Domain\Event\AdminCreatedEvent;
 use App\Common\Domain\Entity\Embedded\Uuid;
 use App\Admin\Domain\Event\SuperAdminCreatedEvent;
 use App\Common\Domain\Entity\Aggregate;
@@ -57,7 +57,7 @@ final class Admin extends Aggregate
         return $admin;
     }
 
-    public static function register(
+    public static function create(
         Uuid $uuid,
         Email $email,
         Name $name,
@@ -70,7 +70,7 @@ final class Admin extends Aggregate
         $status = Status::DISABLED;
 
         $admin = new self($uuid, $email, $name, $password, $role, $status, $specification, $confirmationToken);
-        $admin->raise(new AdminRegisteredEvent($email, $name, $plainPassword, $confirmationToken));
+        $admin->raise(new AdminCreatedEvent($email, $name, $plainPassword, $confirmationToken));
 
         return $admin;
     }

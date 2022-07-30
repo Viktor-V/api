@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Admin\Application\UseCase\Event\AdminCreated;
+namespace App\Admin\Application\UseCase\Event\SuperAdminCreated;
 
 use App\Admin\Application\Service\WelcomeNotifierInterface;
 use App\Admin\Domain\Event\SuperAdminCreatedEvent;

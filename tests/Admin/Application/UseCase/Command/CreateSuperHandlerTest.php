@@ -4,29 +4,29 @@ declare(strict_types=1);
 
 namespace App\Tests\Admin\Application\UseCase\Command;
 
-use App\Admin\Application\UseCase\Command\Register\RegisterCommand;
-use App\Admin\Domain\Event\AdminRegisteredEvent;
+use App\Admin\Application\UseCase\Command\CreateSuper\CreateSuperCommand;
+use App\Admin\Domain\Event\SuperAdminCreatedEvent;
 use App\Tests\Common\Application\ApplicationTestCase;
 use Symfony\Component\Uid\Uuid;
 
-class RegisterHandlerTest extends ApplicationTestCase
+class CreateSuperHandlerTest extends ApplicationTestCase
 {
     public function testDispatch(): void
     {
-        $this->dispatch(new RegisterCommand(
+        $this->dispatch(new CreateSuperCommand(
             Uuid::v4()->__toString(),
-            'register@admin.com',
+            'create@admin.com',
             'Firstname',
             'Lastname',
             'qwert'
         ));
 
         $this->messenger('sync')->queue()->assertNotEmpty();
-        $this->messenger('sync')->queue()->assertContains(RegisterCommand::class);
+        $this->messenger('sync')->queue()->assertContains(CreateSuperCommand::class);
         $this->messenger('sync')->process();
 
         $this->messenger('async')->queue()->assertNotEmpty();
-        $this->messenger('async')->queue()->assertContains(AdminRegisteredEvent::class);
+        $this->messenger('async')->queue()->assertContains(SuperAdminCreatedEvent::class);
         $this->messenger('async')->process();
     }
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Admin\Infrastructure\Command;
 
-use App\Admin\Application\UseCase\Command\Create\CreateSuperCommand;
+use App\Admin\Application\UseCase\Command\CreateSuper\CreateSuperCommand;
 use App\Common\Application\Command\CommandBusInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;

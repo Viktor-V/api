@@ -6,7 +6,7 @@ namespace App\Admin\Infrastructure\Service;
 
 use App\Admin\Application\Service\WelcomeNotifierInterface;
 use App\Admin\Domain\Event\SuperAdminCreatedEvent;
-use App\Admin\Domain\Event\AdminRegisteredEvent;
+use App\Admin\Domain\Event\AdminCreatedEvent;
 use App\Common\Domain\Event\EventInterface;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
@@ -36,7 +36,7 @@ class WelcomeNotifier implements WelcomeNotifierInterface
                 ->htmlTemplate('mail/admin/super_admin_created.html.twig');
         }
 
-        if ($event instanceof AdminRegisteredEvent) {
+        if ($event instanceof AdminCreatedEvent) {
             $email
                 ->to($event->getEmail()->__toString())
                 ->subject($subject)
@@ -47,7 +47,7 @@ class WelcomeNotifier implements WelcomeNotifierInterface
                     'confirmationToken' => $event->getConfirmationToken()->__toString(),
                     'password' => $event->getPlainPassword()->__toString()
                 ])
-                ->htmlTemplate('mail/admin/registered.html.twig');
+                ->htmlTemplate('mail/admin/admin_created.html.twig');
         }
 
         $this->mailer->send($email);
