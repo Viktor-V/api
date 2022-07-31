@@ -4,8 +4,10 @@
            xsi:schemaLocation="https://api-platform.com/schema/metadata
         https://api-platform.com/schema/metadata/metadata-2.0.xsd">
 
-    <resource class="App\AdminSecurity\Domain\DataTransfer\Me" shortName="Admin Security" description="Auth">
+    <resource class="App\AdminSecurity\Domain\DataTransfer\Admin" shortName="Admin Security" description="Auth">
         <property name="uuid" identifier="true" writable="false"/>
+        <property name="password" writable="false" readable="false"/>
+        <property name="role" writable="false" readable="false"/>
 
         <collectionOperations><!-- null --></collectionOperations>
 

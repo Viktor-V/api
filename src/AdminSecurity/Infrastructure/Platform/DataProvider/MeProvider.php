@@ -6,23 +6,25 @@ namespace App\AdminSecurity\Infrastructure\Platform\DataProvider;
 
 use ApiPlatform\Core\DataProvider\ItemDataProviderInterface;
 use ApiPlatform\Core\DataProvider\RestrictedDataProviderInterface;
-use App\AdminSecurity\Domain\DataTransfer\Me;
-use Symfony\Component\Security\Core\Security;
+use App\AdminSecurity\Application\UseCase\Query\Find\FindQuery;
+use App\AdminSecurity\Domain\DataTransfer\Admin;
+use App\Common\Application\Query\QueryBusInterface;
 
 class MeProvider implements ItemDataProviderInterface, RestrictedDataProviderInterface
 {
     public function __construct(
-        private Security $security
+        private QueryBusInterface $bus
     ) {
     }
 
-    public function getItem(string $resourceClass, $id, string $operationName = null, array $context = [])
+    public function getItem(string $resourceClass, $id, string $operationName = null, array $context = []): ?object
     {
-        return new Me('test', 'test', 'test', 'test', 'test', 'test', 'test');
+        /** @var Admin */
+        return $this->bus->handle(new FindQuery());
     }
 
     public function supports(string $resourceClass, string $operationName = null, array $context = []): bool
     {
-        return true;
+        return $resourceClass === Admin::class && $operationName === 'get_me';
     }
 }

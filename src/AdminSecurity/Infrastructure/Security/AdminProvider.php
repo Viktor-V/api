@@ -5,7 +5,10 @@ declare(strict_types=1);
 namespace App\AdminSecurity\Infrastructure\Security;
 
 use App\Admin\Domain\Entity\Embedded\Email;
-use App\AdminSecurity\Infrastructure\Repository\AdminIdentityRepositoryInterface;
+use App\Admin\Domain\Entity\Embedded\Password;
+use App\Admin\Domain\Entity\Embedded\Role;
+use App\Admin\Domain\Entity\Embedded\Status;
+use App\AdminSecurity\Domain\ReadModel\AdminQueryInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UserNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -14,17 +17,23 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 class AdminProvider implements UserProviderInterface
 {
     public function __construct(
-        private AdminIdentityRepositoryInterface $repository
+        private AdminQueryInterface $adminQuery
     ) {
     }
 
     public function loadUserByIdentifier(string $identifier): UserInterface
     {
-        $adminIdentity = $this->repository->findByEmail(new Email($identifier));
-
-        if (!$adminIdentity) {
+        $admin = $this->adminQuery->findByEmail(new Email($identifier));
+        if (!$admin) {
             throw new UserNotFoundException();
         }
+
+        $adminIdentity = new AdminIdentity(
+            new Email($admin->email),
+            new Password($admin->password),
+            Role::from($admin->role),
+            Status::from($admin->status),
+        );
 
         if ($adminIdentity->isActive() === false) {
             throw new UnsupportedUserException();
@@ -35,17 +44,7 @@ class AdminProvider implements UserProviderInterface
 
     public function refreshUser(UserInterface $user): UserInterface
     {
-        $adminIdentity = $this->repository->findByEmail(new Email($user->getUserIdentifier()));
-
-        if (!$adminIdentity) {
-            throw new UserNotFoundException();
-        }
-
-        if ($adminIdentity->isActive() === false) {
-            throw new UnsupportedUserException();
-        }
-
-        return $adminIdentity;
+        return $this->loadUserByIdentifier($user->getUserIdentifier());
     }
 
     public function supportsClass(string $class): bool
