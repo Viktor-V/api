@@ -7,6 +7,8 @@
     <resource class="App\Admin\Domain\DataTransfer\Admin" shortName="Admin" description="Admin">
         <property name="uuid" identifier="true" writable="false"/>
 
+        <attribute name="security">is_granted("ROLE_SUPER_ADMIN")</attribute>
+
         <attribute name="normalization_context">
             <attribute name="groups">
                 <attribute>read</attribute>
@@ -27,13 +29,19 @@
             <collectionOperation name="get">
                 <attribute name="pagination_client_items_per_page">true</attribute>
                 <attribute name="pagination_items_per_page">5</attribute>
+
+                <attribute name="security">is_granted("ROLE_ADMIN")</attribute>
             </collectionOperation>
             <collectionOperation name="post"/>
         </collectionOperations>
 
         <itemOperations>
-            <itemOperation name="get" />
+            <itemOperation name="get">
+                <attribute name="security">is_granted("ROLE_ADMIN")</attribute>
+            </itemOperation>
             <itemOperation name="patch">
+                <attribute name="security">is_granted("ROLE_SUPER_ADMIN") or object.getEmail() === user.getUserIdentifier()</attribute>
+
                 <attribute name="denormalization_context">
                     <attribute name="groups">
                         <attribute>update</attribute>
