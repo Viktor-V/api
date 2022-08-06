@@ -23,8 +23,12 @@ class AdminProvider implements ItemDataProviderInterface, RestrictedDataProvider
     {
         $data = $this->requestStack->getCurrentRequest()?->toArray();
 
+        if (empty($data)) {
+            return null;
+        }
+
         /** @var Admin */
-        return $this->bus->handle(new FindByConfirmationTokenQuery($data['confirmationToken' ?? null]));
+        return $this->bus->handle(new FindByConfirmationTokenQuery((string) ($data['confirmationToken'] ?? null)));
     }
 
     public function supports(string $resourceClass, string $operationName = null, array $context = []): bool

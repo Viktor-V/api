@@ -80,11 +80,6 @@ services:
         class: 'App\Common\Infrastructure\Platform\Serializer\ApiNormalizer'
         decorates: 'api_platform.serializer.normalizer.item'
         
-    App\AdminSecurity\Infrastructure\Platform\Decorator\SecurityDecorator:
-        decorates: 'api_platform.openapi.factory'
-        arguments: 
-            - '@App\AdminSecurity\Infrastructure\Platform\Decorator\SecurityDecorator.inner'
-        
     App\AdminSecurity\Infrastructure\Platform\Decorator\AuthorizationDecorator:
         decorates: 'api_platform.openapi.factory'
         arguments: 
