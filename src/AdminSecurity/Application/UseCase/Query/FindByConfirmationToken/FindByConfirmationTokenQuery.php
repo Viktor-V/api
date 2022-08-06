@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Admin\Application\UseCase\Command\Confirm;
+namespace App\AdminSecurity\Application\UseCase\Query\FindByConfirmationToken;
 
 use App\Admin\Domain\Entity\Embedded\ConfirmationToken;
-use App\Common\Application\Command\CommandInterface;
+use App\Common\Application\Query\QueryInterface;
 
-final class ConfirmCommand implements CommandInterface
+final class FindByConfirmationTokenQuery implements QueryInterface
 {
     public readonly ConfirmationToken $token;
 

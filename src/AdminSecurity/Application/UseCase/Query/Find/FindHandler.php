@@ -9,9 +9,9 @@ use App\AdminSecurity\Domain\DataTransfer\Admin;
 use App\AdminSecurity\Domain\ReadModel\AdminQueryInterface;
 use App\Common\Application\Query\QueryHandlerInterface;
 use Symfony\Component\Security\Core\Security;
-use RuntimeException;
+use DomainException;
 
-class FindHandler implements QueryHandlerInterface
+final class FindHandler implements QueryHandlerInterface
 {
     public function __construct(
         private Security $security,
@@ -23,12 +23,12 @@ class FindHandler implements QueryHandlerInterface
     {
         $user = $this->security->getUser();
         if ($user === null) {
-            throw new RuntimeException('Admin unauthorized.');
+            throw new DomainException('Admin unauthorized.');
         }
 
         $admin = $this->adminQuery->findByEmail(new Email($user->getUserIdentifier()));
         if ($admin === null) {
-            throw new RuntimeException('Admin not found.');
+            throw new DomainException('Admin not found.');
         }
 
         return $admin;

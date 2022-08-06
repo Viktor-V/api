@@ -21,6 +21,7 @@ framework:
         mapping:
             paths:
                 - '%kernel.project_dir%/src/Admin/Infrastructure/Platform/Resource/Admin.serialization.xml'
+                - '%kernel.project_dir%/src/AdminSecurity/Infrastructure/Platform/Resource/Admin.serialization.xml'
 
 when@test:
     framework:

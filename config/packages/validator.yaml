@@ -9,7 +9,8 @@ framework:
 
         mapping:
             paths:
-                - '%kernel.project_dir%/src/Admin/Infrastructure/Validation'
+                - '%kernel.project_dir%/src/Admin/Infrastructure/Platform/Resource/Admin.validation.xml'
+                - '%kernel.project_dir%/src/AdminSecurity/Infrastructure/Platform/Resource/Admin.validation.xml'
         
 when@test:
     framework:

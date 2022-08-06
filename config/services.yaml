@@ -85,12 +85,17 @@ services:
         arguments: 
             - '@App\AdminSecurity\Infrastructure\Platform\Decorator\SecurityDecorator.inner'
         
-    App\AdminSecurity\Infrastructure\Platform\Decorator\AuthorizeDecorator:
+    App\AdminSecurity\Infrastructure\Platform\Decorator\AuthorizationDecorator:
         decorates: 'api_platform.openapi.factory'
         arguments: 
-            - '@App\AdminSecurity\Infrastructure\Platform\Decorator\AuthorizeDecorator.inner'
+            - '@App\AdminSecurity\Infrastructure\Platform\Decorator\AuthorizationDecorator.inner'
     
     App\AdminSecurity\Infrastructure\Platform\Decorator\MeDecorator:
         decorates: 'api_platform.openapi.factory'
         arguments:
             - '@App\AdminSecurity\Infrastructure\Platform\Decorator\MeDecorator.inner'
+
+    App\AdminSecurity\Infrastructure\Platform\Decorator\ConfirmDecorator:
+        decorates: 'api_platform.openapi.factory'
+        arguments:
+            - '@App\AdminSecurity\Infrastructure\Platform\Decorator\ConfirmDecorator.inner'

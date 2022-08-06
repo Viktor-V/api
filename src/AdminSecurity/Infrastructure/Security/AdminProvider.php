@@ -29,10 +29,10 @@ class AdminProvider implements UserProviderInterface
         }
 
         $adminIdentity = new AdminIdentity(
-            new Email($admin->email),
-            new Password($admin->password),
-            Role::from($admin->role),
-            Status::from($admin->status),
+            new Email($admin->getEmail()),
+            new Password($admin->getPassword()),
+            Role::from($admin->getRole()),
+            Status::from($admin->getStatus()),
         );
 
         if ($adminIdentity->isActive() === false) {

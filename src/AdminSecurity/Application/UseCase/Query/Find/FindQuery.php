@@ -6,6 +6,6 @@ namespace App\AdminSecurity\Application\UseCase\Query\Find;
 
 use App\Common\Application\Query\QueryInterface;
 
-class FindQuery implements QueryInterface
+final class FindQuery implements QueryInterface
 {
 }

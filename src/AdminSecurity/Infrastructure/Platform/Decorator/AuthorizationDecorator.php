@@ -12,7 +12,7 @@ use ApiPlatform\Core\OpenApi\Model\Operation;
 use RuntimeException;
 use ArrayObject;
 
-class AuthorizeDecorator implements OpenApiFactoryInterface
+class AuthorizationDecorator implements OpenApiFactoryInterface
 {
     public function __construct(
         private OpenApiFactoryInterface $decorated

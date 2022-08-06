@@ -15,5 +15,4 @@ interface AdminRepositoryInterface
     public function delete(Admin $admin): void;
     public function findByUuid(Uuid $uuid): ?Admin;
     public function findByEmail(Email $email): ?Admin;
-    public function findByConfirmationToken(ConfirmationToken $token): ?Admin;
 }

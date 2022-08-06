@@ -37,7 +37,7 @@ class AdminPersister implements ContextAwareDataPersisterInterface
         $this->dispatch($data, $this->operationName($context));
 
         /** @var Admin */
-        return $this->adminQuery->find(new Uuid($data->getUuid()));
+        return $this->adminQuery->find(new Uuid($data->getUuid())); // TODO: handler
     }
 
     public function remove($data, array $context = []): void

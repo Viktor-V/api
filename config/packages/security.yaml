@@ -44,6 +44,7 @@ security:
     access_control:
         - { path: ^/api/admin/auth/me, roles: ROLE_ADMIN }
         - { path: ^/api/admin/auth/login, roles: PUBLIC_ACCESS }
+        - { path: ^/api/admin/auth/confirm, roles: PUBLIC_ACCESS }
         - { path: ^/api/admins, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
 

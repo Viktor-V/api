@@ -16,7 +16,7 @@ class DoctrineAdminQuery extends AbstractDoctrineQuery implements AdminQueryInte
         $this->queryBuilder
             ->select('*')
             ->from('admin')
-            ->andWhere('uuid = :uuid')
+            ->where('uuid = :uuid')
             ->setParameter('uuid', $uuid->__toString());
 
         $row = $this->queryBuilder->executeQuery()->fetchAssociative();

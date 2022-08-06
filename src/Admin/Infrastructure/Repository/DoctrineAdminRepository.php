@@ -48,15 +48,4 @@ class DoctrineAdminRepository extends AbstractDoctrineRepository implements Admi
 
         return $admin;
     }
-
-    public function findByConfirmationToken(ConfirmationToken $token): ?Admin
-    {
-        $admin = $this->objectRepository->findOneBy(['confirmationToken.confirmationToken' => $token->__toString()]);
-
-        if (!$admin instanceof Admin) {
-            return null;
-        }
-
-        return $admin;
-    }
 }

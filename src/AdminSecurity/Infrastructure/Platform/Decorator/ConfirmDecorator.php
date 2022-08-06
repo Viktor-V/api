@@ -12,8 +12,10 @@ use ApiPlatform\Core\OpenApi\Model\Operation;
 use RuntimeException;
 use ArrayObject;
 
-class ConfirmationDecorator implements OpenApiFactoryInterface
+class ConfirmDecorator implements OpenApiFactoryInterface
 {
+    private const PATH = '/api/admin/auth/confirm';
+
     public function __construct(
         private OpenApiFactoryInterface $decorated
     ) {
@@ -22,6 +24,14 @@ class ConfirmationDecorator implements OpenApiFactoryInterface
     public function __invoke(array $context = []): OpenApi
     {
         $openApi = ($this->decorated)($context);
+
+        /** @var PathItem $pathItem */
+        $pathItem = $openApi->getPaths()->getPath(self::PATH);
+        /** @var Operation $operation */
+        $operation = $pathItem->getPatch();
+
+        /* Remove uuid from parameters */
+        $openApi->getPaths()->addPath(self::PATH, $pathItem->withPatch($operation->withParameters([])));
 
         return $openApi;
     }

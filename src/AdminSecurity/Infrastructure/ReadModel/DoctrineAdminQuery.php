@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\AdminSecurity\Infrastructure\ReadModel;
 
+use App\Admin\Domain\Entity\Embedded\ConfirmationToken;
 use App\Admin\Domain\Entity\Embedded\Email;
 use App\AdminSecurity\Domain\DataTransfer\Admin;
 use App\AdminSecurity\Domain\ReadModel\AdminQueryInterface;
@@ -16,7 +17,7 @@ class DoctrineAdminQuery extends AbstractDoctrineQuery implements AdminQueryInte
         $this->queryBuilder
             ->select('*')
             ->from('admin')
-            ->andWhere('email = :email')
+            ->where('email = :email')
             ->setParameter('email', $email->__toString());
 
         $row = $this->queryBuilder->executeQuery()->fetchAssociative();
@@ -24,16 +25,41 @@ class DoctrineAdminQuery extends AbstractDoctrineQuery implements AdminQueryInte
             return null;
         }
 
-        return new Admin(
-            (string) $row['uuid'],
-            (string) $row['email'],
-            (string) $row['firstname'],
-            (string) $row['lastname'],
-            (string) $row['password'],
-            (string) $row['status'],
-            (string) $row['role'],
-            (string) $row['created_at'],
-            (string) $row['updated_at']
-        );
+        return (new Admin())
+            ->setUuid((string) $row['uuid'])
+            ->setEmail((string) $row['email'])
+            ->setFirstname((string) $row['firstname'])
+            ->setLastname((string) $row['lastname'])
+            ->setPassword((string) $row['password'])
+            ->setStatus((string) $row['status'])
+            ->setRole((string) $row['role'])
+            ->setCreatedAt((string) $row['created_at'])
+            ->setUpdatedAt((string) $row['updated_at']);
+    }
+
+    public function findByConfirmationToken(ConfirmationToken $token): ?Admin
+    {
+        $this->queryBuilder
+            ->select('*')
+            ->from('admin')
+            ->where('confirmation_token = :confirmationToken')
+            ->setParameter('confirmationToken', $token->__toString());
+
+        $row = $this->queryBuilder->executeQuery()->fetchAssociative();
+        if ($row === false) {
+            return null;
+        }
+
+        return (new Admin())
+            ->setUuid((string) $row['uuid'])
+            ->setEmail((string) $row['email'])
+            ->setFirstname((string) $row['firstname'])
+            ->setLastname((string) $row['lastname'])
+            ->setPassword((string) $row['password'])
+            ->setStatus((string) $row['status'])
+            ->setRole((string) $row['role'])
+            ->setCreatedAt((string) $row['created_at'])
+            ->setUpdatedAt((string) $row['updated_at'])
+            ->setConfirmationToken((string) $row['confirmation_token']);
     }
 }
