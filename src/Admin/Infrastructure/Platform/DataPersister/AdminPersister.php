@@ -10,10 +10,10 @@ use App\Admin\Application\UseCase\Command\Block\BlockCommand;
 use App\Admin\Application\UseCase\Command\Delete\DeleteCommand;
 use App\Admin\Application\UseCase\Command\Create\CreateCommand;
 use App\Admin\Application\UseCase\Command\Update\UpdateCommand;
+use App\Admin\Application\UseCase\Query\Find\FindQuery;
 use App\Admin\Domain\DataTransfer\Admin;
-use App\Admin\Domain\ReadModel\AdminQueryInterface;
 use App\Common\Application\Command\CommandBusInterface;
-use App\Common\Domain\Entity\Embedded\Uuid;
+use App\Common\Application\Query\QueryBusInterface;
 use App\Common\Infrastructure\Platform\OperationTrait;
 
 class AdminPersister implements ContextAwareDataPersisterInterface
@@ -21,8 +21,8 @@ class AdminPersister implements ContextAwareDataPersisterInterface
     use OperationTrait;
 
     public function __construct(
-        private CommandBusInterface $bus,
-        private AdminQueryInterface $adminQuery
+        private CommandBusInterface $commandBus,
+        private QueryBusInterface $queryBus
     ) {
     }
 
@@ -37,35 +37,35 @@ class AdminPersister implements ContextAwareDataPersisterInterface
         $this->dispatch($data, $this->operationName($context));
 
         /** @var Admin */
-        return $this->adminQuery->find(new Uuid($data->getUuid())); // TODO: handler
+        return $this->queryBus->handle(new FindQuery($data->getUuid()));
     }
 
     public function remove($data, array $context = []): void
     {
         /** @var Admin $data */
-        $this->bus->dispatch(new DeleteCommand($data->getUuid()));
+        $this->commandBus->dispatch(new DeleteCommand($data->getUuid()));
     }
 
     private function dispatch(Admin $admin, string $operationName): void
     {
         match ($operationName) {
-            'post' => $this->bus->dispatch(new CreateCommand(
+            'post' => $this->commandBus->dispatch(new CreateCommand(
                 $admin->getUuid(),
                 $admin->getEmail(),
                 $admin->getFirstname(),
                 $admin->getLastname(),
                 $admin->getPassword()
             )),
-            'patch' => $this->bus->dispatch(new UpdateCommand(
+            'patch' => $this->commandBus->dispatch(new UpdateCommand(
                 $admin->getUuid(),
                 $admin->getEmail(),
                 $admin->getFirstname(),
                 $admin->getLastname()
             )),
-            'patch_activate' => $this->bus->dispatch(new ActivateCommand(
+            'patch_activate' => $this->commandBus->dispatch(new ActivateCommand(
                 $admin->getUuid()
             )),
-            'patch_block' => $this->bus->dispatch(new BlockCommand(
+            'patch_block' => $this->commandBus->dispatch(new BlockCommand(
                 $admin->getUuid()
             ))
         };

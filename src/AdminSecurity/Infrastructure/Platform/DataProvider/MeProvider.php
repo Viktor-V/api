@@ -6,7 +6,7 @@ namespace App\AdminSecurity\Infrastructure\Platform\DataProvider;
 
 use ApiPlatform\Core\DataProvider\ItemDataProviderInterface;
 use ApiPlatform\Core\DataProvider\RestrictedDataProviderInterface;
-use App\AdminSecurity\Application\UseCase\Query\Find\FindQuery;
+use App\AdminSecurity\Application\UseCase\Query\Me\MeQuery;
 use App\AdminSecurity\Domain\DataTransfer\Admin;
 use App\Common\Application\Query\QueryBusInterface;
 
@@ -20,7 +20,7 @@ class MeProvider implements ItemDataProviderInterface, RestrictedDataProviderInt
     public function getItem(string $resourceClass, $id, string $operationName = null, array $context = []): ?object
     {
         /** @var Admin */
-        return $this->bus->handle(new FindQuery());
+        return $this->bus->handle(new MeQuery());
     }
 
     public function supports(string $resourceClass, string $operationName = null, array $context = []): bool
