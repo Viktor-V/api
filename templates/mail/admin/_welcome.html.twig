@@ -5,8 +5,11 @@
     <p class="text-gray-700">
         A new admin account has been created for you. Your credentials: {# TODO: trans #}
     </p>
+
     <ul class="text-gray-700">
         <li>Username: <b>{{ user }}</b></li> {# TODO: trans #}
         <li>Password: <b>{{ password }}</b></li> {# TODO: trans #}
     </ul>
+
+    {% include 'mail/admin/_change_password.html.twig' %}
 </div>

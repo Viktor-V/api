@@ -36,6 +36,15 @@
 
         <attribute name="password">
             <group>write</group>
+            <group>update</group>
+        </attribute>
+
+        <attribute name="confirmPassword">
+            <group>update_by_self</group>
+        </attribute>
+
+        <attribute name="oldPassword">
+            <group>update_by_self</group>
         </attribute>
 
         <attribute name="createdAt">

@@ -15,6 +15,7 @@ use App\Admin\Domain\DataTransfer\Admin;
 use App\Common\Application\Command\CommandBusInterface;
 use App\Common\Application\Query\QueryBusInterface;
 use App\Common\Infrastructure\Platform\OperationTrait;
+use Symfony\Component\Security\Core\Security;
 
 class AdminPersister implements ContextAwareDataPersisterInterface
 {
@@ -22,7 +23,8 @@ class AdminPersister implements ContextAwareDataPersisterInterface
 
     public function __construct(
         private CommandBusInterface $commandBus,
-        private QueryBusInterface $queryBus
+        private QueryBusInterface $queryBus,
+        private Security $security
     ) {
     }
 
@@ -60,7 +62,9 @@ class AdminPersister implements ContextAwareDataPersisterInterface
                 $admin->getUuid(),
                 $admin->getEmail(),
                 $admin->getFirstname(),
-                $admin->getLastname()
+                $admin->getLastname(),
+                $this->security->getUser()?->getUserIdentifier(),
+                $admin->getPassword()
             )),
             'patch_activate' => $this->commandBus->dispatch(new ActivateCommand(
                 $admin->getUuid()

@@ -20,7 +20,7 @@ class WelcomeNotifier implements WelcomeNotifierInterface
 
     public function send(EventInterface $event): void
     {
-        $subject = 'Welcome to the team!';
+        $subject = 'Welcome to the team!'; // TODO: trans
         $email = (new TemplatedEmail());
 
         if ($event instanceof SuperAdminCreatedEvent) {

@@ -39,19 +39,20 @@
             <itemOperation name="get">
                 <attribute name="security">is_granted("ROLE_ADMIN")</attribute>
             </itemOperation>
+
             <itemOperation name="patch">
                 <attribute name="security">is_granted("ROLE_SUPER_ADMIN") or object.getEmail() === user.getUserIdentifier()</attribute>
 
                 <attribute name="denormalization_context">
                     <attribute name="groups">
                         <attribute>update</attribute>
+                        <attribute>update_by_self</attribute>
                     </attribute>
                 </attribute>
 
-                <attribute name="validation_groups">
-                    <attribute>update</attribute>
-                </attribute>
+                <attribute name="validation_groups">App\Admin\Infrastructure\Validator\Group\AdminGroupGenerator</attribute>
             </itemOperation>
+
             <itemOperation name="delete" />
 
             <itemOperation name="patch_block">

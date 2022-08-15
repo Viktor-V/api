@@ -9,6 +9,7 @@
             <constraint name="NotBlank">
                 <option name="groups">
                     <value>write</value>
+                    <value>update</value>
                 </option>
             </constraint>
 
@@ -24,6 +25,7 @@
             <constraint name="NotBlank">
                 <option name="groups">
                     <value>write</value>
+                    <value>update</value>
                 </option>
             </constraint>
 
@@ -40,6 +42,7 @@
             <constraint name="NotBlank">
                 <option name="groups">
                     <value>write</value>
+                    <value>update</value>
                 </option>
             </constraint>
 
@@ -62,6 +65,28 @@
             <constraint name="NotCompromisedPassword">
                 <option name="groups">
                     <value>write</value>
+                    <value>update</value>
+                    <value>update_by_self</value>
+                </option>
+            </constraint>
+        </property>
+
+        <property name="confirmPassword">
+            <constraint name="Expression">
+                <option name="expression">this.getPassword() == this.getConfirmPassword()</option>
+
+                <option name="message">The password confirmation does not match.</option>
+
+                <option name="groups">
+                    <value>update_by_self</value>
+                </option>
+            </constraint>
+        </property>
+
+        <property name="oldPassword">
+            <constraint name="\App\Admin\Infrastructure\Validator\UserPassword\UserPassword">
+                <option name="groups">
+                    <value>update_by_self</value>
                 </option>
             </constraint>
         </property>

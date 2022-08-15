@@ -9,7 +9,7 @@ use App\Admin\Domain\Entity\Embedded\Name;
 use App\Admin\Domain\Entity\Embedded\PlainPassword;
 use App\Common\Domain\Event\EventInterface;
 
-class SuperAdminCreatedEvent implements EventInterface
+final class SuperAdminCreatedEvent implements EventInterface
 {
     public function __construct(
         private Email $email,

@@ -12,6 +12,8 @@ trait AdminTrait
     private string $lastname = '';
     private string $status = '';
     private string $password = '';
+    private string $confirmPassword = '';
+    private string $oldPassword = '';
     private string $createdAt = '';
     private string $updatedAt = '';
     private string $confirmationToken = '';
@@ -84,6 +86,30 @@ trait AdminTrait
     public function setPassword(string $password): self
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    public function getConfirmPassword(): string
+    {
+        return $this->confirmPassword;
+    }
+
+    public function setConfirmPassword(string $confirmPassword): self
+    {
+        $this->confirmPassword = $confirmPassword;
+
+        return $this;
+    }
+
+    public function getOldPassword(): string
+    {
+        return $this->oldPassword;
+    }
+
+    public function setOldPassword(string $oldPassword): self
+    {
+        $this->oldPassword = $oldPassword;
 
         return $this;
     }

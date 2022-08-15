@@ -12,6 +12,7 @@ use App\Admin\Domain\Entity\Embedded\PlainPassword;
 use App\Admin\Domain\Entity\Embedded\Role;
 use App\Admin\Domain\Entity\Embedded\Status;
 use App\Admin\Domain\Event\AdminCreatedEvent;
+use App\Admin\Domain\Event\AdminPasswordUpdatedEvent;
 use App\Common\Domain\Entity\Embedded\Uuid;
 use App\Admin\Domain\Event\SuperAdminCreatedEvent;
 use App\Common\Domain\Entity\Aggregate;
@@ -114,8 +115,16 @@ final class Admin extends Aggregate
         $this->updatedAt = new DateTimeImmutable();
     }
 
-    public function confirm(): void
-    {
-        $this->activate();
+    public function updatePassword(
+        PlainPassword $plainPassword,
+        Password $password,
+        Email $changedBy
+    ): void {
+        $this->password = $password;
+        $this->updatedAt = new DateTimeImmutable();
+
+        if ($this->email->__toString() !== $changedBy->__toString()) {
+            $this->raise(new AdminPasswordUpdatedEvent($this->email, $this->name, $plainPassword));
+        }
     }
 }
