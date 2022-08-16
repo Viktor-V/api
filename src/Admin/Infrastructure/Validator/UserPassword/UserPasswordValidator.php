@@ -25,7 +25,7 @@ class UserPasswordValidator extends ConstraintValidator
     ) {
     }
 
-    public function validate(mixed $password, Constraint $constraint): void
+    public function validate(mixed $value, Constraint $constraint): void
     {
         if (!$constraint instanceof UserPassword) {
             throw new UnexpectedTypeException($constraint, UserPassword::class);
@@ -41,14 +41,14 @@ class UserPasswordValidator extends ConstraintValidator
             return;
         }
 
-        if ($password === null || $password === '') {
+        if ($value === null || $value === '') {
             $this->context->addViolation((string) $constraint->message);
 
             return;
         }
 
-        if (!\is_string($password)) {
-            throw new UnexpectedTypeException($password, 'string');
+        if (!\is_string($value)) {
+            throw new UnexpectedTypeException($value, 'string');
         }
 
         $user = $this->tokenStorage->getToken()?->getUser();
@@ -60,7 +60,7 @@ class UserPasswordValidator extends ConstraintValidator
             ));
         }
 
-        if ($this->isNotCurrentPassword($user, $password)) {
+        if ($this->isNotCurrentPassword($user, $value)) {
             $this->context->addViolation((string) $constraint->message);
         }
     }
