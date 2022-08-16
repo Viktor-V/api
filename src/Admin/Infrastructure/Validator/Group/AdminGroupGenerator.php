@@ -16,9 +16,6 @@ final class AdminGroupGenerator implements ValidationGroupsGeneratorInterface
     ) {
     }
 
-    /**
-     * @param Admin $object
-     */
     public function __invoke($object): array
     {
         $currentUser = $this->security->getUser();
@@ -26,6 +23,7 @@ final class AdminGroupGenerator implements ValidationGroupsGeneratorInterface
             throw new RuntimeException('User is not logged in.');
         }
 
+        /** @var Admin $object */
         return $currentUser->getUserIdentifier() === $object->getEmail()
             ? ['update', 'update_by_self']
             : ['update'];

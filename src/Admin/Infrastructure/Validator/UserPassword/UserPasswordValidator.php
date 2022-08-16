@@ -11,7 +11,6 @@ use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Core\Validator\Constraints\UserPassword;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Exception\ConstraintDefinitionException;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -32,18 +31,18 @@ class UserPasswordValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, UserPassword::class);
         }
 
-        /** @var Admin $payload */
+        /** @var Admin | null $payload */
         $payload = $this->context->getObject();
         if ($payload === null) {
             return;
         }
 
-        if ($payload->getPassword() === null || $payload->getPassword() === '') {
+        if ($payload->getPassword() === '') {
             return;
         }
 
         if ($password === null || $password === '') {
-            $this->context->addViolation($constraint->message);
+            $this->context->addViolation((string) $constraint->message);
 
             return;
         }
@@ -62,19 +61,21 @@ class UserPasswordValidator extends ConstraintValidator
         }
 
         if ($this->isNotCurrentPassword($user, $password)) {
-            $this->context->addViolation($constraint->message);
+            $this->context->addViolation((string) $constraint->message);
         }
     }
 
-    private function isNotCurrentPassword(UserInterface $user, string $password): bool
+    private function isNotCurrentPassword(PasswordAuthenticatedUserInterface $user, string $password): bool
     {
         $hasher = $this->hasherFactory->getPasswordHasher($user);
 
-        /** @var Admin $userWithPassword */
-        $userWithPassword = $this->queryBus->handle(new FindByEmailQuery($user->getUserIdentifier()));
+        /** @var UserInterface $user */
+        $query = new FindByEmailQuery($user->getUserIdentifier());
+        /** @var Admin | null $userWithPassword */
+        $userWithPassword = $this->queryBus->handle($query);
 
         return $userWithPassword === null
-            || $userWithPassword->getPassword() === null
+            || $userWithPassword->getPassword() === ''
             || !$hasher->verify($userWithPassword->getPassword(), $password);
     }
 }

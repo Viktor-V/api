@@ -63,7 +63,7 @@ class AdminPersister implements ContextAwareDataPersisterInterface
                 $admin->getEmail(),
                 $admin->getFirstname(),
                 $admin->getLastname(),
-                $this->security->getUser()?->getUserIdentifier(),
+                (string) $this->security->getUser()?->getUserIdentifier(),
                 $admin->getPassword()
             )),
             'patch_activate' => $this->commandBus->dispatch(new ActivateCommand(
