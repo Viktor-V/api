@@ -42,7 +42,7 @@ class UserPasswordValidator extends ConstraintValidator
         }
 
         if ($value === null || $value === '') {
-            $this->context->addViolation((string) $constraint->message);
+            $this->context->addViolation($constraint->message);
 
             return;
         }
@@ -61,7 +61,7 @@ class UserPasswordValidator extends ConstraintValidator
         }
 
         if ($this->isNotCurrentPassword($user, $value)) {
-            $this->context->addViolation((string) $constraint->message);
+            $this->context->addViolation($constraint->message);
         }
     }
 
