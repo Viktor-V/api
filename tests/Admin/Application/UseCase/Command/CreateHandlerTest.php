@@ -21,10 +21,6 @@ class CreateHandlerTest extends ApplicationTestCase
             'qwert'
         ));
 
-        $this->messenger('sync')->queue()->assertNotEmpty();
-        $this->messenger('sync')->queue()->assertContains(CreateCommand::class);
-        $this->messenger('sync')->process();
-
         $this->messenger('async')->queue()->assertNotEmpty();
         $this->messenger('async')->queue()->assertContains(AdminCreatedEvent::class);
         $this->messenger('async')->process();

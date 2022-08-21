@@ -7,6 +7,7 @@ namespace App\Tests\Admin\Application\UseCase\Command;
 use App\Admin\Application\UseCase\Command\CreateSuper\CreateSuperCommand;
 use App\Admin\Domain\Event\SuperAdminCreatedEvent;
 use App\Tests\Common\Application\ApplicationTestCase;
+use Symfony\Component\Messenger\Transport\InMemoryTransport;
 use Symfony\Component\Uid\Uuid;
 
 class CreateSuperHandlerTest extends ApplicationTestCase
@@ -20,10 +21,6 @@ class CreateSuperHandlerTest extends ApplicationTestCase
             'Lastname',
             'qwert'
         ));
-
-        $this->messenger('sync')->queue()->assertNotEmpty();
-        $this->messenger('sync')->queue()->assertContains(CreateSuperCommand::class);
-        $this->messenger('sync')->process();
 
         $this->messenger('async')->queue()->assertNotEmpty();
         $this->messenger('async')->queue()->assertContains(SuperAdminCreatedEvent::class);

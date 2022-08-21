@@ -36,6 +36,7 @@ codestyle:
 test:
     stage: test
     script:
+        - php -d memory_limit=-1 ./bin/console lexik:jwt:generate-keypair --env=test --skip-if-exists --quiet
         - php -d memory_limit=-1 ./bin/console doctrine:schema:drop --env=test --force
         - php -d memory_limit=-1 ./bin/console doctrine:schema:create --env=test
         - php -d memory_limit=-1 ./bin/console cache:warmup --env=test
