@@ -35,8 +35,22 @@ codestyle:
 
 test:
     stage: test
+    services:
+        - postgres:13-alpine
+    variables:
+        POSTGRES_DB: app
+        POSTGRES_USER: symfony
+        POSTGRES_PASSWORD: ChangeMe
+        POSTGRES_HOST: postgres
+        POSTGRES_PORT: '5432'
+    before_script:
+        - apk add --no-cache --virtual .pgsql-deps postgresql-dev
+        - docker-php-ext-install -j$(nproc) pdo_pgsql
+        - apk add --no-cache --virtual .pgsql-rundeps so:libpq.so.5
+        - apk del .pgsql-deps
     script:
         - php -d memory_limit=-1 ./bin/console lexik:jwt:generate-keypair --env=test --skip-if-exists --quiet
+        - php -d memory_limit=-1 ./bin/console doctrine:database:create --env=test --if-not-exists
         - php -d memory_limit=-1 ./bin/console doctrine:schema:drop --env=test --force
         - php -d memory_limit=-1 ./bin/console doctrine:schema:create --env=test
         - php -d memory_limit=-1 ./bin/console cache:warmup --env=test
