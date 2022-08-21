@@ -45,9 +45,9 @@ trait AdminLoginTrait
         $uuid = \Symfony\Component\Uid\Uuid::v4()->__toString();
 
         if ($super === true) {
-            $bus->dispatch(new CreateSuperCommand($uuid, 'admin@admin.com', 'admin', 'admin', 'pswrd'));
+            $bus->dispatch(new CreateSuperCommand($uuid, 'admin@admin.com', 'Admin', 'Admin', 'pswrd'));
         } else {
-            $bus->dispatch(new CreateCommand($uuid, 'admin@admin.com', 'admin', 'admin', 'pswrd'));
+            $bus->dispatch(new CreateCommand($uuid, 'admin@admin.com', 'Admin', 'Admin', 'pswrd'));
             $bus->dispatch(new ActivateCommand($uuid));
         }
 

@@ -14,13 +14,7 @@ class CreateSuperHandlerTest extends ApplicationTestCase
 {
     public function testDispatch(): void
     {
-        $this->dispatch(new CreateSuperCommand(
-            Uuid::v4()->__toString(),
-            'create@admin.com',
-            'Firstname',
-            'Lastname',
-            'qwert'
-        ));
+        $this->dispatch(new CreateSuperCommand(Uuid::v4()->__toString(), 'admin@admin.com', 'Admin', 'Admin', 'pswrd'));
 
         $this->messenger('async')->queue()->assertNotEmpty();
         $this->messenger('async')->queue()->assertContains(SuperAdminCreatedEvent::class);

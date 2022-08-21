@@ -13,13 +13,7 @@ class CreateHandlerTest extends ApplicationTestCase
 {
     public function testDispatch(): void
     {
-        $this->dispatch(new CreateCommand(
-            Uuid::v4()->__toString(),
-            'register@admin.com',
-            'Firstname',
-            'Lastname',
-            'qwert'
-        ));
+        $this->dispatch(new CreateCommand(Uuid::v4()->__toString(), 'admin@admin.com', 'Admin', 'Admin', 'pswrd'));
 
         $this->messenger('async')->queue()->assertNotEmpty();
         $this->messenger('async')->queue()->assertContains(AdminCreatedEvent::class);
