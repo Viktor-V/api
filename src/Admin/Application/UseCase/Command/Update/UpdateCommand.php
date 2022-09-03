@@ -15,7 +15,7 @@ final class UpdateCommand implements CommandInterface
     public readonly Uuid $uuid;
     public readonly Email $email;
     public readonly Name $name;
-    public readonly Email $changedBy;
+    public readonly Uuid $changedBy;
     public readonly ?PlainPassword $password;
 
     public function __construct(
@@ -29,7 +29,7 @@ final class UpdateCommand implements CommandInterface
         $this->uuid = new Uuid($uuid);
         $this->email = new Email($email);
         $this->name = new Name($firstname, $lastname);
-        $this->changedBy = new Email($changedBy);
+        $this->changedBy = new Uuid($changedBy);
         $this->password = $password ? new PlainPassword($password) : null;
     }
 }

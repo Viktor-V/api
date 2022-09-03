@@ -9,6 +9,7 @@ use App\Admin\Domain\Entity\Embedded\Password;
 use App\Admin\Domain\Entity\Embedded\Role;
 use App\Admin\Domain\Entity\Embedded\Status;
 use App\AdminSecurity\Domain\ReadModel\AdminQueryInterface;
+use App\Common\Domain\Entity\Embedded\Uuid;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UserNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -29,6 +30,7 @@ class AdminProvider implements UserProviderInterface
         }
 
         $adminIdentity = new AdminIdentity(
+            new Uuid($admin->getUuid()),
             new Email($admin->getEmail()),
             new Password($admin->getPassword()),
             Role::from($admin->getRole()),
@@ -36,7 +38,7 @@ class AdminProvider implements UserProviderInterface
         );
 
         if ($adminIdentity->isActive() === false) {
-            throw new UnsupportedUserException();
+            throw new UserNotFoundException();
         }
 
         return $adminIdentity;

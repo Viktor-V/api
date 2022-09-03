@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace App\Tests\Admin\Application\UseCase\Query;
 
 use App\Admin\Application\UseCase\Command\Create\CreateCommand;
-use App\Admin\Application\UseCase\Query\FindByEmail\FindByEmailQuery;
+use App\Admin\Application\UseCase\Query\Find\FindQuery;
 use App\Admin\Domain\DataTransfer\Admin;
 use App\Tests\Common\Application\ApplicationTestCase;
 use Symfony\Component\Uid\Uuid;
 
-class FindByEmailTest extends ApplicationTestCase
+class FindTest extends ApplicationTestCase
 {
-    public function testFoundByEMail(): void
+    public function testAdminFoundByUuid(): void
     {
         $this->dispatch(new CreateCommand(
             $uuid = Uuid::v4()->__toString(),
@@ -22,7 +22,7 @@ class FindByEmailTest extends ApplicationTestCase
             'pswrd'
         ));
         /** @var Admin $admin */
-        $admin = $this->handle(new FindByEmailQuery($email));
+        $admin = $this->handle(new FindQuery($uuid));
 
         self::assertNotNull($admin);
         self::assertEquals($uuid, $admin->getUuid());
@@ -32,8 +32,8 @@ class FindByEmailTest extends ApplicationTestCase
         self::assertEquals('disabled', $admin->getStatus());
     }
 
-    public function testAdminNotFoundByEmail(): void
+    public function testAdminNotFoundByUuid(): void
     {
-        self::assertNull($this->handle(new FindByEmailQuery('admin@admin.com')));
+        self::assertNull($this->handle(new FindQuery(Uuid::v4()->__toString())));
     }
 }

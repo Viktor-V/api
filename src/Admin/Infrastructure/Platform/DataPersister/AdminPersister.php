@@ -12,6 +12,7 @@ use App\Admin\Application\UseCase\Command\Create\CreateCommand;
 use App\Admin\Application\UseCase\Command\Update\UpdateCommand;
 use App\Admin\Application\UseCase\Query\Find\FindQuery;
 use App\Admin\Domain\DataTransfer\Admin;
+use App\AdminSecurity\Infrastructure\Security\AdminIdentity;
 use App\Common\Application\Command\CommandBusInterface;
 use App\Common\Application\Query\QueryBusInterface;
 use App\Common\Infrastructure\Platform\OperationTrait;
@@ -50,6 +51,9 @@ class AdminPersister implements ContextAwareDataPersisterInterface
 
     private function dispatch(Admin $admin, string $operationName): void
     {
+        /** @var AdminIdentity $adminIdentity */
+        $adminIdentity = $this->security->getUser();
+
         match ($operationName) {
             'post' => $this->commandBus->dispatch(new CreateCommand(
                 $admin->getUuid(),
@@ -63,7 +67,7 @@ class AdminPersister implements ContextAwareDataPersisterInterface
                 $admin->getEmail(),
                 $admin->getFirstname(),
                 $admin->getLastname(),
-                (string) $this->security->getUser()?->getUserIdentifier(),
+                $adminIdentity->getUuid(),
                 $admin->getPassword()
             )),
             'patch_activate' => $this->commandBus->dispatch(new ActivateCommand(

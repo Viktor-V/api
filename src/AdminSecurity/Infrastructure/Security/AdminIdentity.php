@@ -8,17 +8,24 @@ use App\Admin\Domain\Entity\Embedded\Email;
 use App\Admin\Domain\Entity\Embedded\Password;
 use App\Admin\Domain\Entity\Embedded\Role;
 use App\Admin\Domain\Entity\Embedded\Status;
+use App\Common\Domain\Entity\Embedded\Uuid;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class AdminIdentity implements UserInterface, PasswordAuthenticatedUserInterface
 {
     public function __construct(
+        private Uuid $uuid,
         private Email $email,
         private Password $password,
         private Role $role,
         private Status $status
     ) {
+    }
+
+    public function getUuid(): string
+    {
+        return $this->uuid->__toString();
     }
 
     public function getRoles(): array

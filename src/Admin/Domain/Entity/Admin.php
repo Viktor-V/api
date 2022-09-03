@@ -118,12 +118,12 @@ final class Admin extends Aggregate
     public function updatePassword(
         PlainPassword $plainPassword,
         Password $password,
-        Email $changedBy
+        Uuid $changedBy
     ): void {
         $this->password = $password;
         $this->updatedAt = new DateTimeImmutable();
 
-        if ($this->email->__toString() !== $changedBy->__toString()) {
+        if ($this->uuid->__toString() !== $changedBy->__toString()) {
             $this->raise(new AdminPasswordUpdatedEvent($this->email, $this->name, $plainPassword));
         }
     }

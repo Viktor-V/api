@@ -27,6 +27,14 @@ final class UpdateHandler implements CommandHandlerInterface
             throw new DomainException(sprintf('Admin not found. Uuid: #%s', $command->uuid->__toString()));
         }
 
+        if ($command->uuid->__toString() !== $command->changedBy->__toString()) {
+            $changedByAdmin = $this->adminRepository->findByUuid($command->changedBy);
+
+            if ($changedByAdmin === null) {
+                throw new DomainException('Admin is not logged in.');
+            }
+        }
+
         $admin->update($command->email, $command->name, $this->specification);
         if ($command->password) {
             $admin->updatePassword(
