@@ -11,12 +11,14 @@ use App\AdminSecurity\Domain\DataTransfer\Admin;
 use App\Common\Application\Command\CommandBusInterface;
 use App\Common\Application\Query\QueryBusInterface;
 use App\Common\Infrastructure\Platform\OperationTrait;
+use Symfony\Component\Security\Core\Security;
 
 class AdminPersister implements ContextAwareDataPersisterInterface
 {
     use OperationTrait;
 
     public function __construct(
+        private Security $security,
         private CommandBusInterface $commandBus,
         private QueryBusInterface $queryBus
     ) {
@@ -30,7 +32,7 @@ class AdminPersister implements ContextAwareDataPersisterInterface
     public function persist($data, array $context = []): object
     {
         /** @var Admin $data */
-        $this->commandBus->dispatch(new ConfirmCommand($data->getUuid()));
+        $this->commandBus->dispatch(new ConfirmCommand($data->getUuid(), $this->security->getUser() !== null));
 
         /** @var Admin */
         return $this->queryBus->handle(new FindQuery($data->getUuid()));

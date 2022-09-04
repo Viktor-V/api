@@ -10,7 +10,6 @@ use App\Admin\Domain\DataTransfer\Admin;
 use App\Common\Application\Command\CommandBusInterface;
 use App\Common\Application\Query\QueryBusInterface;
 use App\Tests\Common\Infrastructure\AdminLoginTrait;
-use Doctrine\ORM\Query;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Uid\Uuid;
 

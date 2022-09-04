@@ -10,10 +10,13 @@ use App\Common\Domain\Entity\Embedded\Uuid;
 final class ConfirmCommand implements CommandInterface
 {
     public readonly Uuid $uuid;
+    public readonly bool $loggedIn;
 
     public function __construct(
-        string $uuid
+        string $uuid,
+        bool $loggedIn
     ) {
         $this->uuid = new Uuid($uuid);
+        $this->loggedIn = $loggedIn;
     }
 }
