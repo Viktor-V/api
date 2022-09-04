@@ -3,28 +3,40 @@ parameters:
         - ./src
     exclude_files:
         - '#.*test.*#'
+        - ./src/Common/Domain/Assert/*
     layers:
-        -
-            name: Controller
+        - 
+            name: Domain
             collectors:
                 -
-                    type: className
-                    regex: .*Controller.*
-        -
-            name: Repository
+                    type: directory
+                    regex: /src/\w+/Domain/.*
+
+        - 
+            name: Application
             collectors:
                 -
-                    type: className
-                    regex: .*Repository.*
-        -
-            name: Service
+                    type: directory
+                    regex: /src/\w+/Application/.*
+
+        -    
+            name: Infrastructure
             collectors:
                 -
-                    type: className
-                    regex: .*Service.*
+                    type: directory
+                    regex: /src/\w+/Infrastructure/.*
+
+        -   
+            name: Vendor
+            collectors:
+                -   type: className
+                    regex: ^(Symfony|ApiPlatform|Doctrine)\\.*
+                    
     ruleset:
-        Controller:
-            - Service
-        Service:
-            - Repository
-        Repository:
+        Domain:
+        Application:
+            - Domain
+        Infrastructure:
+            - Domain
+            - Application
+            - Vendor
