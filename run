@@ -12,8 +12,8 @@ if [ $# -gt 0 ]; then
         docker-compose exec php php -d memory_limit=-1 ./vendor/bin/phpcs --standard=phpcs.xml
         docker-compose exec php php -d memory_limit=-1 ./vendor/bin/phpcpd --fuzzy src/ config/
         docker-compose exec php php -d memory_limit=-1 ./vendor/bin/psalm
-        docker-compose exec php php -d memory_limit=-1 ./vendor/bin/deptrac analyse --config-file=deptrac.layers.yaml
-        docker-compose exec php php -d memory_limit=-1 ./vendor/bin/deptrac analyse --config-file=deptrac.modules.yaml
+        docker-compose exec php php -d memory_limit=-1 ./vendor/bin/deptrac analyse --no-progress --config-file=deptrac.layers.yaml
+        docker-compose exec php php -d memory_limit=-1 ./vendor/bin/deptrac analyse --no-progress --config-file=deptrac.modules.yaml
 
         docker-compose exec php php -d memory_limit=-1 bin/console lexik:jwt:generate-keypair --env=test --skip-if-exists --quiet
         docker-compose exec php php -d memory_limit=-1 bin/console doctrine:database:create --env=test --if-not-exists
