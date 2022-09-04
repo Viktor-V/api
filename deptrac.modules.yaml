@@ -1,0 +1,36 @@
+parameters:
+    paths:
+        - ./src
+    exclude_files:
+        - '#.*test.*#'
+        - '#.*\/src\/.*\/Infrastructure\/Adapter\/.*#'
+    layers:
+        -
+            name: Common
+            collectors:
+                -
+                    type: directory
+                    regex: /src/Common/.*
+                    
+        -   
+            name: Admin
+            collectors:
+                -   
+                    type: directory
+                    regex: /src/Admin/.*
+                    
+        -   
+            name: AdminSecurity
+            collectors:
+                -   
+                    type: directory
+                    regex: /src/AdminSecurity/.*
+
+
+    ruleset:
+        Common:
+        Admin:
+            - Common
+        AdminSecurity:
+            - Common
+            - Admin

@@ -32,7 +32,8 @@ codestyle:
         - php -d memory_limit=-1 ./vendor/bin/phpcs --standard=phpcs.xml
         - php -d memory_limit=-1 ./vendor/bin/phpcpd --fuzzy src/ config/
         - php -d memory_limit=-1 ./vendor/bin/psalm --no-progress=true --output-format=text -m
-        - php -d memory_limit=-1 ./vendor/bin/deptrac analyse --config-file=deptrac.yaml
+        - php -d memory_limit=-1 ./vendor/bin/deptrac analyse --config-file=deptrac.layers.yaml
+        - php -d memory_limit=-1 ./vendor/bin/deptrac analyse --config-file=deptrac.modules.yaml
 
 test:
     stage: test
