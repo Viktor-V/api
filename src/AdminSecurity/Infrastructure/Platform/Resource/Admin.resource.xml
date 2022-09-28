@@ -22,7 +22,8 @@
                 </attribute>
 
                 <attribute name="openapi_context">
-                    <attribute name="summary">Get profile data</attribute>
+                    <attribute name="summary">Get profile data.</attribute>
+                    <attribute name="description">Get profile data.</attribute>
                 </attribute>
             </itemOperation>
 
@@ -45,7 +46,8 @@
                 </attribute>
 
                 <attribute name="openapi_context">
-                    <attribute name="summary">Confirm by myself</attribute>
+                    <attribute name="summary">Confirm admin account by myself.</attribute>
+                    <attribute name="description">Confirm admin account by myself.</attribute>
 
                     <attribute name="requestBody">
                         <attribute name="required">true</attribute>

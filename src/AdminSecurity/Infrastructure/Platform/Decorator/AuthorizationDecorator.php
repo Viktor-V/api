@@ -70,8 +70,8 @@ class AuthorizationDecorator implements OpenApiFactoryInterface
                     ],
                 ],
                 summary: 'Get JWT token to login.',
+                description: 'Get JWT token to login.',
                 requestBody: new RequestBody(
-                    description: 'Generate new JWT Token',
                     content: new ArrayObject([
                         'application/json' => [
                             'schema' => [

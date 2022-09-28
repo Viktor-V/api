@@ -70,7 +70,8 @@
                 </attribute>
 
                 <attribute name="openapi_context">
-                    <attribute name="summary">Block admin</attribute>
+                    <attribute name="summary">Block admin.</attribute>
+                    <attribute name="description">Block admin.</attribute>
 
                     <attribute name="requestBody">
                         <attribute name="required">true</attribute>
@@ -109,7 +110,8 @@
                 </attribute>
 
                 <attribute name="openapi_context">
-                    <attribute name="summary">Activate admin</attribute>
+                    <attribute name="summary">Activate admin.</attribute>
+                    <attribute name="description">Activate admin.</attribute>
 
                     <attribute name="requestBody">
                         <attribute name="required">true</attribute>
