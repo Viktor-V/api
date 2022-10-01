@@ -20,7 +20,7 @@ use App\Common\Domain\Specification\SpecificationInterface;
 use DomainException;
 use DateTimeImmutable;
 
-final class Admin extends Aggregate
+class Admin extends Aggregate
 {
     private DateTimeImmutable $createdAt;
     private ?DateTimeImmutable $updatedAt;
