@@ -1,0 +1,51 @@
+on: push
+  
+jobs:
+  build-php:
+    runs-on: ubuntu-22.04
+    container: makeitlv/php:8.1.5
+    steps:
+      - uses: actions/checkout@v3
+      - run: curl --show-error --silent "https://getcomposer.org/installer" | php
+      - run: php composer.phar install --ignore-platform-reqs --no-ansi --no-interaction --no-scripts
+      - run: php composer.phar dump-autoload --optimize --classmap-authoritative
+      - run: php composer.phar check-platform-reqs
+        
+  codestyle:
+    runs-on: ubuntu-22.04
+    container: makeitlv/php:8.1.5
+    needs: [build-php]
+    steps:
+      - uses: actions/checkout@v3
+      - run: php -d memory_limit=-1 ./bin/console cache:warmup --env=dev
+      - run: php -d memory_limit=-1 ./vendor/bin/phpcs --standard=phpcs.xml
+      - run: php -d memory_limit=-1 ./vendor/bin/phpcpd --fuzzy src/ config/
+      - run: php -d memory_limit=-1 ./vendor/bin/psalm --no-progress=true --output-format=text -m
+      - run: php -d memory_limit=-1 ./vendor/bin/deptrac analyse --no-progress --config-file=deptrac.layers.yaml
+      - run: php -d memory_limit=-1 ./vendor/bin/deptrac analyse --no-progress --config-file=deptrac.modules.yaml
+    
+  test:
+    runs-on: ubuntu-22.04
+    container: makeitlv/php:8.1.5
+    services:
+      postgres:
+        image: postgres:13-alpine
+        env:
+          POSTGRES_DB: app_test
+          POSTGRES_USER: symfony
+          POSTGRES_PASSWORD: ChangeMe
+          POSTGRES_HOST: postgres
+          POSTGRES_PORT: '5432'
+    needs: [build-php]
+    steps:
+      - uses: actions/checkout@v3
+      - run: apk add --no-cache --virtual .pgsql-deps postgresql-dev
+      - run: docker-php-ext-install -j$(nproc) pdo_pgsql
+      - run: apk add --no-cache --virtual .pgsql-rundeps so:libpq.so.5
+      - run: apk del .pgsql-deps
+      - run: php -d memory_limit=-1 ./bin/console lexik:jwt:generate-keypair --env=test --skip-if-exists --quiet
+      - run: php -d memory_limit=-1 ./bin/console doctrine:database:create --env=test --if-not-exists
+      - run: php -d memory_limit=-1 ./bin/console doctrine:schema:drop --env=test --force
+      - run: php -d memory_limit=-1 ./bin/console doctrine:schema:create --env=test
+      - run: php -d memory_limit=-1 ./bin/console cache:warmup --env=test
+      - run: php -d memory_limit=-1 ./bin/phpunit
