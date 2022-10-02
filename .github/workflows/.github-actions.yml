@@ -10,6 +10,10 @@ jobs:
       - run: php composer.phar install --ignore-platform-reqs --no-ansi --no-interaction --no-scripts
       - run: php composer.phar dump-autoload --optimize --classmap-authoritative
       - run: php composer.phar check-platform-reqs
+      - name: Cache
+        uses: actions/cache@v3
+        with:
+          path: .env composer.phar vendor/
         
   codestyle:
     runs-on: ubuntu-22.04
