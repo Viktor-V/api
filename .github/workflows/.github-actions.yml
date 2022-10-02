@@ -1,26 +1,11 @@
 on: push
   
 jobs:
-  qa:
+  codestyle:
     runs-on: ubuntu-22.04
     container: makeitlv/php:8.1.5
-    services:
-      postgres:
-        image: postgres:13-alpine
-        env:
-          POSTGRES_DB: app_test
-          POSTGRES_USER: symfony
-          POSTGRES_PASSWORD: ChangeMe
-          POSTGRES_HOST: postgres
-          POSTGRES_PORT: '5432'
     steps:
       - uses: actions/checkout@v3
-      - name: Install DB requirements
-        run: |
-          - apk add --no-cache --virtual .pgsql-deps postgresql-dev
-          - docker-php-ext-install -j$(nproc) pdo_pgsql
-          - apk add --no-cache --virtual .pgsql-rundeps so:libpq.so.5
-          - apk del .pgsql-deps
       - name: Install project packages
         run: |
           - curl --show-error --silent "https://getcomposer.org/installer" | php
@@ -35,11 +20,4 @@ jobs:
           - php -d memory_limit=-1 ./vendor/bin/psalm --no-progress=true --output-format=text -m
           - php -d memory_limit=-1 ./vendor/bin/deptrac analyse --no-progress --config-file=deptrac.layers.yaml
           - php -d memory_limit=-1 ./vendor/bin/deptrac analyse --no-progress --config-file=deptrac.modules.yaml
-      - name: Test
-        run: |
-          - php -d memory_limit=-1 ./bin/console lexik:jwt:generate-keypair --env=test --skip-if-exists --quiet
-          - php -d memory_limit=-1 ./bin/console doctrine:database:create --env=test --if-not-exists
-          - php -d memory_limit=-1 ./bin/console doctrine:schema:drop --env=test --force
-          - php -d memory_limit=-1 ./bin/console doctrine:schema:create --env=test
-          - php -d memory_limit=-1 ./bin/console cache:warmup --env=test
-          - php -d memory_limit=-1 ./bin/phpunit
+          
