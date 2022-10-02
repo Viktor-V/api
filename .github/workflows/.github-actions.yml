@@ -1,36 +1,7 @@
 on: push
   
 jobs:
-  build-php:
-    runs-on: ubuntu-22.04
-    container: makeitlv/php:8.1.5
-    steps:
-      - uses: actions/checkout@v3
-      - run: curl --show-error --silent "https://getcomposer.org/installer" | php
-      - run: php composer.phar install --ignore-platform-reqs --no-ansi --no-interaction --no-scripts
-      - run: php composer.phar dump-autoload --optimize --classmap-authoritative
-      - run: php composer.phar check-platform-reqs
-      - name: Cache
-        uses: actions/cache@v3
-        with:
-          path: .env composer.phar vendor/
-          key: cache-${{ hashFiles('**/composer.lock') }}
-          restore-keys: cache-
-        
-  codestyle:
-    runs-on: ubuntu-22.04
-    container: makeitlv/php:8.1.5
-    needs: [build-php]
-    steps:
-      - uses: actions/checkout@v3
-      - run: php -d memory_limit=-1 ./bin/console cache:warmup --env=dev
-      - run: php -d memory_limit=-1 ./vendor/bin/phpcs --standard=phpcs.xml
-      - run: php -d memory_limit=-1 ./vendor/bin/phpcpd --fuzzy src/ config/
-      - run: php -d memory_limit=-1 ./vendor/bin/psalm --no-progress=true --output-format=text -m
-      - run: php -d memory_limit=-1 ./vendor/bin/deptrac analyse --no-progress --config-file=deptrac.layers.yaml
-      - run: php -d memory_limit=-1 ./vendor/bin/deptrac analyse --no-progress --config-file=deptrac.modules.yaml
-    
-  test:
+  qa:
     runs-on: ubuntu-22.04
     container: makeitlv/php:8.1.5
     services:
@@ -42,16 +13,33 @@ jobs:
           POSTGRES_PASSWORD: ChangeMe
           POSTGRES_HOST: postgres
           POSTGRES_PORT: '5432'
-    needs: [build-php]
     steps:
       - uses: actions/checkout@v3
-      - run: apk add --no-cache --virtual .pgsql-deps postgresql-dev
-      - run: docker-php-ext-install -j$(nproc) pdo_pgsql
-      - run: apk add --no-cache --virtual .pgsql-rundeps so:libpq.so.5
-      - run: apk del .pgsql-deps
-      - run: php -d memory_limit=-1 ./bin/console lexik:jwt:generate-keypair --env=test --skip-if-exists --quiet
-      - run: php -d memory_limit=-1 ./bin/console doctrine:database:create --env=test --if-not-exists
-      - run: php -d memory_limit=-1 ./bin/console doctrine:schema:drop --env=test --force
-      - run: php -d memory_limit=-1 ./bin/console doctrine:schema:create --env=test
-      - run: php -d memory_limit=-1 ./bin/console cache:warmup --env=test
-      - run: php -d memory_limit=-1 ./bin/phpunit
+      - name: Install DB requirements
+        run: |
+          - apk add --no-cache --virtual .pgsql-deps postgresql-dev
+          - docker-php-ext-install -j$(nproc) pdo_pgsql
+          - apk add --no-cache --virtual .pgsql-rundeps so:libpq.so.5
+          - apk del .pgsql-deps
+      - name: Install project packages
+        run: |
+          - curl --show-error --silent "https://getcomposer.org/installer" | php
+          - php composer.phar install --ignore-platform-reqs --no-ansi --no-interaction --no-scripts
+          - php composer.phar dump-autoload --optimize --classmap-authoritative
+          - php composer.phar check-platform-reqs
+      - name: Codestyle
+        run: |
+          - php -d memory_limit=-1 ./bin/console cache:warmup --env=dev
+          - php -d memory_limit=-1 ./vendor/bin/phpcs --standard=phpcs.xml
+          - php -d memory_limit=-1 ./vendor/bin/phpcpd --fuzzy src/ config/
+          - php -d memory_limit=-1 ./vendor/bin/psalm --no-progress=true --output-format=text -m
+          - php -d memory_limit=-1 ./vendor/bin/deptrac analyse --no-progress --config-file=deptrac.layers.yaml
+          - php -d memory_limit=-1 ./vendor/bin/deptrac analyse --no-progress --config-file=deptrac.modules.yaml
+      - name: Test
+        run: |
+          - php -d memory_limit=-1 ./bin/console lexik:jwt:generate-keypair --env=test --skip-if-exists --quiet
+          - php -d memory_limit=-1 ./bin/console doctrine:database:create --env=test --if-not-exists
+          - php -d memory_limit=-1 ./bin/console doctrine:schema:drop --env=test --force
+          - php -d memory_limit=-1 ./bin/console doctrine:schema:create --env=test
+          - php -d memory_limit=-1 ./bin/console cache:warmup --env=test
+          - php -d memory_limit=-1 ./bin/phpunit
