@@ -14,6 +14,8 @@ jobs:
         uses: actions/cache@v3
         with:
           path: .env composer.phar vendor/
+          key: cache-${{ hashFiles('**/composer.lock') }}
+          restore-keys: cache-
         
   codestyle:
     runs-on: ubuntu-22.04
