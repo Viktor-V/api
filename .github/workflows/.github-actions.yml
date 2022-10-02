@@ -8,16 +8,15 @@ jobs:
       - uses: actions/checkout@v3
       - name: Install project packages
         run: |
-          - curl --show-error --silent "https://getcomposer.org/installer" | php
-          - php composer.phar install --ignore-platform-reqs --no-ansi --no-interaction --no-scripts
-          - php composer.phar dump-autoload --optimize --classmap-authoritative
-          - php composer.phar check-platform-reqs
+          curl --show-error --silent "https://getcomposer.org/installer" | php
+          php composer.phar install --ignore-platform-reqs --no-ansi --no-interaction --no-scripts
+          php composer.phar dump-autoload --optimize --classmap-authoritative
+          php composer.phar check-platform-reqs
       - name: Codestyle
         run: |
-          - php -d memory_limit=-1 ./bin/console cache:warmup --env=dev
-          - php -d memory_limit=-1 ./vendor/bin/phpcs --standard=phpcs.xml
-          - php -d memory_limit=-1 ./vendor/bin/phpcpd --fuzzy src/ config/
-          - php -d memory_limit=-1 ./vendor/bin/psalm --no-progress=true --output-format=text -m
-          - php -d memory_limit=-1 ./vendor/bin/deptrac analyse --no-progress --config-file=deptrac.layers.yaml
-          - php -d memory_limit=-1 ./vendor/bin/deptrac analyse --no-progress --config-file=deptrac.modules.yaml
-          
+          php -d memory_limit=-1 ./bin/console cache:warmup --env=dev
+          php -d memory_limit=-1 ./vendor/bin/phpcs --standard=phpcs.xml
+          php -d memory_limit=-1 ./vendor/bin/phpcpd --fuzzy src/ config/
+          php -d memory_limit=-1 ./vendor/bin/psalm --no-progress=true --output-format=text -m
+          php -d memory_limit=-1 ./vendor/bin/deptrac analyse --no-progress --config-file=deptrac.layers.yaml
+          php -d memory_limit=-1 ./vendor/bin/deptrac analyse --no-progress --config-file=deptrac.modules.yaml
