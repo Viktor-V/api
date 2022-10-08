@@ -12,7 +12,7 @@ use ApiPlatform\Core\OpenApi\Model\Operation;
 use RuntimeException;
 use ArrayObject;
 
-class AuthorizationDecorator implements OpenApiFactoryInterface
+class RefreshTokenDecorator implements OpenApiFactoryInterface
 {
     public function __construct(
         private OpenApiFactoryInterface $decorated
@@ -42,28 +42,24 @@ class AuthorizationDecorator implements OpenApiFactoryInterface
             ],
         ]);
 
-        $schemas['Credentials'] = new ArrayObject([
+        $schemas['RefreshToken'] = new ArrayObject([
             'type' => 'object',
             'properties' => [
-                'email' => [
+                'refreshToken' => [
                     'type' => 'string',
-                    'example' => 'user@email.com',
-                ],
-                'password' => [
-                    'type' => 'string',
-                    'example' => 'password',
-                ],
+                    'example' => 'refreshToken',
+                ]
             ],
         ]);
 
         $pathItem = new PathItem(
-            ref: 'JWT Token',
+            ref: 'JWT Token Refresh',
             post: new Operation(
-                operationId: 'postCredentialsItem',
+                operationId: 'postRefreshToken',
                 tags: ['Admin Security'],
                 responses: [
                     '200' => [
-                        'description' => 'Get JWT token',
+                        'description' => 'Refresh JWT token',
                         'content' => [
                             'application/json' => [
                                 'schema' => [
@@ -73,20 +69,20 @@ class AuthorizationDecorator implements OpenApiFactoryInterface
                         ],
                     ],
                 ],
-                summary: 'Get JWT token to login.',
-                description: 'Get JWT token to login.',
+                summary: 'Refresh JWT token.',
+                description: 'Refresh JWT token.',
                 requestBody: new RequestBody(
                     content: new ArrayObject([
                         'application/json' => [
                             'schema' => [
-                                '$ref' => '#/components/schemas/Credentials',
+                                '$ref' => '#/components/schemas/RefreshToken',
                             ],
                         ],
                     ]),
                 ),
             ),
         );
-        $openApi->getPaths()->addPath('/api/admin/auth/login', $pathItem);
+        $openApi->getPaths()->addPath('/api/admin/auth/refresh', $pathItem);
 
         return $openApi;
     }

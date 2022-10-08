@@ -23,6 +23,14 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Admin/Infrastructure/Mapping'
                 prefix: 'App\Admin\Domain\Entity'
                 alias: Admin
+
+            RefreshToken:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/AdminSecurity/Infrastructure/Mapping'
+                prefix: 'App\AdminSecurity\Infrastructure\RefreshToken\Entity'
+                alias: RefreshToken
+
 when@test:
     doctrine:
         dbal:

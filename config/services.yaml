@@ -94,3 +94,8 @@ services:
         decorates: 'api_platform.openapi.factory'
         arguments:
             - '@App\AdminSecurity\Infrastructure\Platform\Decorator\ConfirmDecorator.inner'
+
+    App\AdminSecurity\Infrastructure\Platform\Decorator\RefreshTokenDecorator:
+        decorates: 'api_platform.openapi.factory'
+        arguments:
+            - '@App\AdminSecurity\Infrastructure\Platform\Decorator\RefreshTokenDecorator.inner'

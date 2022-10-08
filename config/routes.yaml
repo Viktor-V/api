@@ -8,6 +8,9 @@ api:
 api_login_check:
     path: /api/admin/auth/login
 
+api_refresh_token:
+    path: /api/admin/auth/refresh
+
 kernel:
     resource: ../src/Kernel.php
     type: annotation
