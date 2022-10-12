@@ -59,7 +59,7 @@ final class DomainEventSubscriber implements EventSubscriber
 
     private function keepAggregateRoots(LifecycleEventArgs $args): void
     {
-        $entity = $args->getEntity();
+        $entity = $args->getObject();
 
         if (!($entity instanceof Aggregate)) {
             return;

@@ -5,13 +5,9 @@ declare(strict_types=1);
 namespace App\AdminSecurity\Infrastructure\Platform\Decorator;
 
 use ApiPlatform\Core\OpenApi\Factory\OpenApiFactoryInterface;
-use ApiPlatform\Core\OpenApi\Model\Response;
 use ApiPlatform\Core\OpenApi\OpenApi;
 use ApiPlatform\Core\OpenApi\Model\PathItem;
-use ApiPlatform\Core\OpenApi\Model\RequestBody;
 use ApiPlatform\Core\OpenApi\Model\Operation;
-use RuntimeException;
-use ArrayObject;
 
 class ConfirmDecorator implements OpenApiFactoryInterface
 {
